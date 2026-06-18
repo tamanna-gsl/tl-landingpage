@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GSL AI Suite — Courses that adapt to you</title>
+<meta name="description" content="Future-ready skills, taught through stories, deep-dives, and case studies, each led by an AI mentor. From Get Set Learn.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #ffffff;
+    --bg-soft: #eef0f7;
+    --surface: #ffffff;
+    --brand-teal: #00D8B9;
+    --brand-blue: #073393;
+    --teal: #14b8a6;
+    --teal-2: #0d9488;
+    --teal-soft: #ccfbef;
+    --teal-pale: #f0fdfa;
+    --ink: #0b1220;
+    --ink-2: #1f2937;
+    --mute: #64748b;
+    --line: #e7e9f1;
+    --line-soft: #f0f1f6;
+    --amber: #fef3c7;
+    --rose: #fce7f3;
+    --shadow-sm: 0 1px 2px rgba(11,18,32,0.04), 0 1px 3px rgba(11,18,32,0.04);
+    --shadow: 0 4px 12px rgba(11,18,32,0.05), 0 2px 4px rgba(11,18,32,0.04);
+    --shadow-lg: 0 12px 32px -8px rgba(11,18,32,0.10), 0 4px 12px rgba(11,18,32,0.05);
+    --radius: 16px;
+    --radius-lg: 22px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    font-size: 16px;
+    letter-spacing: -0.005em;
+  }
+  body {
+    background-image:
+      radial-gradient(circle at 12% -5%, rgba(0,216,185,0.06) 0%, transparent 34%),
+      radial-gradient(circle at 92% 8%, rgba(195,248,255,0.35) 0%, transparent 30%);
+    background-attachment: fixed;
+  }
+  a { color: inherit; text-decoration: none; }
+  button { font: inherit; border: 0; background: none; cursor: pointer; color: inherit; }
+  img, svg { display: block; max-width: 100%; }
+  ::selection { background: var(--teal-soft); color: var(--ink); }
+  .wrap { max-width: 1200px; margin: 0 auto; padding: 0 28px; }
+
+  .kw {
+    position: relative;
+    white-space: nowrap;
+    background: linear-gradient(95deg, var(--brand-teal) 0%, var(--brand-blue) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    padding-bottom: 0.06em;
+  }
+  .kw::after {
+    content: '';
+    position: absolute;
+    left: -3%; right: -3%; bottom: -0.12em;
+    height: 0.34em;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 320 26' preserveAspectRatio='none'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='0'%3E%3Cstop offset='0' stop-color='%2300D8B9'/%3E%3Cstop offset='1' stop-color='%23073393'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M7 17 C70 7 130 9 185 12 C240 15 285 16 314 9' stroke='url(%23g)' stroke-width='7' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+  }
+
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 12.5px; font-weight: 600; letter-spacing: 0.04em;
+    color: var(--teal-2);
+    padding: 6px 14px;
+    background: var(--teal-pale);
+    border: 1px solid var(--teal-soft);
+    border-radius: 999px;
+  }
+  .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); display: inline-block; }
+
+  h1, h2, h3 { letter-spacing: -0.02em; line-height: 1.1; font-weight: 700; color: var(--ink); }
+  h1 { font-size: clamp(40px, 5.6vw, 68px); font-weight: 800; letter-spacing: -0.03em; line-height: 1.04; }
+  h2 { font-size: clamp(32px, 4vw, 48px); font-weight: 700; }
+  h3 { font-size: 20px; font-weight: 700; }
+  p { color: var(--mute); font-size: 16px; line-height: 1.6; }
+  .lede { font-size: 18.5px; line-height: 1.55; color: var(--ink-2); font-weight: 500; max-width: 640px; margin: 0 auto; }
+
+  /* NAV */
+  .nav-wrap {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(255,255,255,0.8);
+    backdrop-filter: saturate(180%) blur(14px);
+    -webkit-backdrop-filter: saturate(180%) blur(14px);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .nav { display: flex; align-items: center; justify-content: space-between; padding: 16px 0; gap: 24px; }
+  .brand-cluster { display: flex; align-items: center; gap: 14px; }
+  .co-brand { display: flex; align-items: center; gap: 10px; padding-right: 14px; border-right: 1px solid var(--line); }
+  .co-brand .gsl { font-size: 9.5px; font-weight: 700; letter-spacing: 0.08em; color: var(--mute); line-height: 1.1; }
+  .logo-mark {
+    width: 24px; height: 24px; border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 11px; font-weight: 800;
+    background: linear-gradient(135deg, #14b8a6, #0d9488);
+  }
+  .logo {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-size: 19px; font-weight: 800; letter-spacing: -0.02em; color: var(--ink);
+  }
+  .logo-icon {
+    width: 28px; height: 28px; border-radius: 8px; background: var(--ink);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .nav-links { display: flex; gap: 32px; align-items: center; font-size: 14.5px; font-weight: 500; color: var(--ink-2); }
+  .nav-links a:hover { color: var(--teal-2); }
+  .nav-actions { display: flex; gap: 10px; align-items: center; }
+
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 11px 22px; border-radius: 999px;
+    font-weight: 600; font-size: 14.5px;
+    transition: transform .12s ease, background .18s ease, box-shadow .18s ease, color .18s ease;
+    white-space: nowrap; border: 1px solid transparent;
+  }
+  .btn-primary { background: var(--ink); color: white; box-shadow: var(--shadow-sm); }
+  .btn-primary:hover { background: var(--teal-2); transform: translateY(-1px); }
+  .btn-teal { background: var(--teal); color: white; box-shadow: 0 4px 14px -2px rgba(20,184,166,0.4); }
+  .btn-teal:hover { background: var(--teal-2); transform: translateY(-1px); box-shadow: 0 8px 20px -4px rgba(20,184,166,0.45); }
+  .btn-brand {
+    position: relative; overflow: hidden;
+    background: linear-gradient(100deg, var(--brand-teal) 0%, var(--brand-blue) 100%);
+    color: white; border: none;
+    box-shadow: 0 8px 22px -6px rgba(7,51,147,0.45);
+  }
+  .btn-brand > * { position: relative; z-index: 1; }
+  .btn-brand::before {
+    content: '';
+    position: absolute; inset: 0;
+    border-radius: inherit;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.32) 0%, rgba(255,255,255,0.08) 42%, rgba(255,255,255,0) 60%);
+    pointer-events: none;
+  }
+  .btn-brand:hover { transform: translateY(-1px); box-shadow: 0 12px 28px -6px rgba(7,51,147,0.5); }
+  .btn-ghost { background: transparent; color: var(--ink); border-color: var(--line); }
+  .btn-ghost:hover { background: var(--surface); border-color: var(--ink); }
+  .btn-soft { background: var(--surface); color: var(--ink); border-color: var(--line); box-shadow: var(--shadow-sm); }
+  .btn-soft:hover { border-color: var(--ink); transform: translateY(-1px); }
+  .btn-lg { padding: 14px 28px; font-size: 15.5px; }
+
+  /* HERO */
+  .hero { padding: 80px 0 90px; }
+  .hero-grid { display: grid; grid-template-columns: 1.02fr 1fr; gap: 64px; align-items: center; }
+  .hero h1 { margin-bottom: 24px; }
+  .hero-sub { font-size: 20px; line-height: 1.55; color: var(--ink-2); max-width: 480px; margin-bottom: 36px; font-weight: 500; }
+  .hero-ctas { display: flex; gap: 12px; flex-wrap: wrap; }
+  .hero-tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 12.5px; font-weight: 600; letter-spacing: 0.01em;
+    color: var(--ink-2);
+    padding: 6px 13px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    box-shadow: var(--shadow-sm);
+  }
+  .hero-tag .d { width: 7px; height: 7px; border-radius: 50%; }
+  .hero-tag .d.teal { background: #00D8B9; }
+  .hero-tag .d.orange { background: #FFAD40; }
+  .hero-tag .d.fuchsia { background: #DE00A5; }
+
+  /* HERO FANNED DECK */
+  .deck { position: relative; height: 420px; display: flex; align-items: center; justify-content: center; }
+  .deck-card {
+    position: absolute;
+    width: 210px; height: 304px;
+    border-radius: 20px;
+    overflow: hidden;
+    border: 1px solid rgba(11,18,32,0.06);
+    box-shadow: 0 22px 48px -16px rgba(11,18,32,0.24), 0 6px 16px -8px rgba(11,18,32,0.10);
+    transition: transform .3s cubic-bezier(.2,.7,.2,1), box-shadow .3s ease;
+  }
+  .deck-img { position: absolute; inset: 0; }
+  .deck-img.empathy { background: linear-gradient(150deg, #7af0dd 0%, #00D8B9 100%); }
+  .deck-img.nykaa { background: linear-gradient(150deg, #f774d5 0%, #DE00A5 100%); }
+  .deck-img.entre { background: linear-gradient(150deg, #ffd594 0%, #FFAD40 100%); }
+  .deck-badge {
+    position: absolute; top: 12px; left: 12px; z-index: 2;
+    padding: 4px 11px; border-radius: 999px;
+    font-size: 10px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
+    background: rgba(255,255,255,0.95); color: var(--ink-2);
+  }
+  .deck-scrim {
+    position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
+    padding: 30px 15px 15px;
+    background: linear-gradient(to top, rgba(7,18,32,0.66) 0%, rgba(7,18,32,0.18) 68%, transparent 100%);
+  }
+  .deck-name { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 9px; line-height: 1.2; }
+  .deck-tag {
+    display: inline-block; padding: 4px 11px; border-radius: 999px;
+    font-size: 11px; font-weight: 600;
+    background: rgba(255,255,255,0.2); color: #fff;
+    -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
+  }
+  .deck-card.left   { transform: rotate(-9deg) translate(-144px, 26px); z-index: 1; }
+  .deck-card.right  { transform: rotate(9deg) translate(144px, 26px); z-index: 1; }
+  .deck-card.center { transform: rotate(0deg) translateY(-16px); z-index: 3; }
+  .deck-card.left:hover   { transform: rotate(-9deg) translate(-144px, 14px); z-index: 4; }
+  .deck-card.right:hover  { transform: rotate(9deg) translate(144px, 14px); z-index: 4; }
+  .deck-card.center:hover { transform: rotate(0deg) translateY(-28px); z-index: 4; }
+
+  /* SECTION HEAD */
+  .section-head { text-align: center; max-width: 760px; margin: 0 auto 64px; }
+  .section-head h2 { margin-top: 18px; }
+  .section-head .lede { margin-top: 18px; }
+
+  /* HOW IT WORKS */
+  .how { padding: 100px 0; }
+  .step-showcase { display: grid; grid-template-columns: 0.85fr 1.15fr; gap: 56px; align-items: center; }
+  .step-tabs { display: flex; flex-direction: column; gap: 8px; }
+  .step-tab {
+    display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: center;
+    padding: 18px 22px; border-radius: 14px;
+    border: 1px solid transparent; background: transparent;
+    cursor: pointer; transition: background .2s, border-color .2s, box-shadow .2s;
+    position: relative; text-align: left; font: inherit; color: inherit; width: 100%;
+  }
+  .step-tab::before {
+    content: ''; position: absolute; left: 0; top: 18%; bottom: 18%;
+    width: 3px; border-radius: 3px; background: transparent; transition: background .2s;
+  }
+  .step-tab.active { background: var(--surface); border-color: var(--line); box-shadow: var(--shadow-sm); align-items: start; }
+  .step-tab.active::before { background: var(--brand-teal); }
+  .step-tab:not(.active):hover { background: rgba(0,216,185,0.05); }
+  .tab-num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 38px; height: 38px; border-radius: 11px;
+    font-size: 13px; font-weight: 800;
+    background: var(--bg-soft); color: var(--mute);
+    transition: background .2s, color .2s; flex-shrink: 0;
+  }
+  .step-tab.active .tab-num { background: linear-gradient(135deg, var(--brand-teal), var(--brand-blue)); color: white; }
+  .tab-title {
+    display: block;
+    font-size: 22px; font-weight: 700; letter-spacing: -0.01em;
+    color: var(--ink-2); line-height: 1.25; transition: color .2s;
+  }
+  .step-tab.active .tab-title { color: var(--ink); }
+  .tab-desc {
+    display: none;
+    font-size: 17px; line-height: 1.5; color: var(--ink-2); font-weight: 500;
+    margin-top: 10px;
+  }
+  .step-tab.active .tab-desc { display: block; }
+
+  .step-screen-wrap { position: relative; }
+  .step-screen-panel {
+    aspect-ratio: 16 / 10; border-radius: 16px;
+    background: linear-gradient(135deg, #e7fbf6 0%, var(--bg-soft) 100%);
+    border: 1px solid var(--line);
+    box-shadow: 0 20px 50px -16px rgba(11,18,32,0.18), 0 8px 20px -8px rgba(11,18,32,0.10);
+    overflow: hidden; position: relative; display: none;
+  }
+  .step-screen-panel.active { display: block; }
+
+  /* PERSONALISATION */
+  .personal { padding: 100px 0; }
+  .conversation-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .conversation-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 20px;
+    display: flex; flex-direction: column; gap: 16px;
+    box-shadow: var(--shadow-sm);
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .conversation-card:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+  .chat-header { display: flex; align-items: center; gap: 11px; padding-bottom: 14px; border-bottom: 1px solid var(--line-soft); }
+  .chat-avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 15px; font-weight: 800; letter-spacing: -0.01em; flex-shrink: 0;
+  }
+  .chat-avatar.c1 { background: linear-gradient(160deg, #5eead4 0%, #00D8B9 100%); }
+  .chat-avatar.c2 { background: linear-gradient(160deg, #f774d5 0%, #DE00A5 100%); }
+  .chat-avatar.c3 { background: linear-gradient(160deg, #ffd594 0%, #FFAD40 100%); }
+  .chat-name { font-size: 15px; font-weight: 700; color: var(--ink); line-height: 1.2; }
+  .chat-chip {
+    display: inline-block; margin-top: 7px;
+    padding: 3px 11px; border-radius: 999px;
+    font-size: 12px; font-weight: 700; letter-spacing: 0.01em;
+  }
+  .chat-chip.c1 { background: #d2f8f0; color: #056b5d; }
+  .chat-chip.c2 { background: #fbd5ee; color: #a8077e; }
+  .chat-chip.c3 { background: #ffe6bd; color: #985700; }
+  .chat-thread { display: flex; flex-direction: column; gap: 10px; }
+  .chat-bubble { font-size: 14px; line-height: 1.55; padding: 11px 14px; border-radius: 14px; max-width: 90%; }
+  .chat-bubble.user { background: var(--bg-soft); color: var(--ink-2); align-self: flex-end; border-bottom-right-radius: 5px; font-weight: 500; }
+  .chat-bubble.mentor { background: var(--teal-pale); color: var(--ink); border: 1px solid var(--teal-soft); align-self: flex-start; border-bottom-left-radius: 5px; }
+
+  /* MENTORS */
+  .mentors { padding: 100px 0; background: #f7f9fc; border-top: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft); }
+  .mentor-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .mentor-card {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 18px;
+    box-shadow: var(--shadow-sm);
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .mentor-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+  .mentor-frame { aspect-ratio: 4/3; border-radius: 12px; margin-bottom: 16px; overflow: hidden; position: relative; }
+  .mentor-frame.c1 { background: linear-gradient(160deg, #b6f5ea 0%, #5eead4 100%); }
+  .mentor-frame.c2 { background: linear-gradient(160deg, #ffe6c2 0%, #ffce8a 100%); }
+  .mentor-frame.c3 { background: linear-gradient(160deg, #fcd5ee 0%, #f9a8df 100%); }
+  .mentor-name { font-size: 18px; font-weight: 700; margin-bottom: 3px; color: var(--ink); }
+  .mentor-role { font-size: 14px; color: var(--ink-2); font-weight: 500; margin-bottom: 14px; }
+  .mentor-tag {
+    display: inline-block; padding: 4px 11px; border-radius: 999px;
+    background: var(--bg-soft); font-size: 11.5px; font-weight: 600; color: var(--ink-2);
+  }
+
+  /* CASE STUDIES */
+  .cases { padding: 100px 0; }
+  .cases-split { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 56px; align-items: center; }
+  .cases-visual {
+    aspect-ratio: 4 / 3.2; border-radius: 16px;
+    background: linear-gradient(135deg, #e7fbf6 0%, var(--bg-soft) 100%);
+    border: 1px solid var(--line);
+    box-shadow: 0 20px 50px -16px rgba(11,18,32,0.18), 0 8px 20px -8px rgba(11,18,32,0.10);
+  }
+  .cases-content { display: flex; flex-direction: column; gap: 26px; }
+  .socratic-callout {
+    background: var(--teal-pale);
+    border: 1px solid var(--teal-soft);
+    border-left: 3px solid var(--brand-teal);
+    border-radius: 12px;
+    padding: 18px 20px;
+  }
+  .socratic-label { font-size: 16.5px; font-weight: 700; color: var(--ink); margin-bottom: 6px; }
+  .socratic-callout p { font-size: 15px; color: var(--ink-2); font-weight: 500; line-height: 1.5; }
+  .case-features { display: flex; flex-direction: column; gap: 22px; }
+  .case-feature { display: grid; grid-template-columns: auto 1fr; gap: 14px; align-items: start; }
+  .cf-icon {
+    width: 42px; height: 42px; border-radius: 12px;
+    background: var(--teal-pale); color: var(--teal-2);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .cf-title { font-size: 16.5px; font-weight: 700; color: var(--ink); margin-bottom: 3px; }
+  .cf-desc { font-size: 14.5px; color: var(--ink-2); line-height: 1.5; font-weight: 500; }
+
+  /* COURSE LIBRARY */
+  .courses { padding: 100px 0; background: #f7f9fc; border-top: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft); }
+  .course-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+  .course-card {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--radius-lg); overflow: hidden;
+    display: flex; flex-direction: column;
+    box-shadow: var(--shadow-sm);
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .course-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+  .course-thumb { aspect-ratio: 16/10; position: relative; overflow: hidden; flex-shrink: 0; }
+  .course-thumb.empathy { background: linear-gradient(135deg, #7af0dd 0%, #00D8B9 100%); }
+  .course-thumb.entre { background: linear-gradient(135deg, #ffd594 0%, #FFAD40 100%); }
+  .course-thumb.nykaa { background: linear-gradient(135deg, #f774d5 0%, #DE00A5 100%); }
+  .course-badge {
+    position: absolute; top: 14px; left: 14px;
+    padding: 5px 12px; border-radius: 999px;
+    font-size: 11.5px; font-weight: 700; letter-spacing: 0.04em;
+    text-transform: uppercase; z-index: 2;
+  }
+  .course-badge.live { background: white; color: var(--teal-2); }
+  .course-badge.live::before {
+    content: ''; display: inline-block;
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--brand-teal); margin-right: 6px; vertical-align: middle;
+  }
+  .course-badge.soon { background: rgba(255,255,255,0.95); color: #b45309; }
+  .course-body { padding: 22px 24px 24px; display: flex; flex-direction: column; flex: 1; }
+  .course-name { font-size: 22px; font-weight: 700; margin-bottom: 6px; letter-spacing: -0.02em; color: var(--ink); }
+  .course-desc { font-size: 14.5px; color: var(--ink-2); margin-bottom: 16px; line-height: 1.5; }
+  .course-pilot {
+    font-size: 12.5px; color: var(--ink-2); font-weight: 600;
+    margin-bottom: 16px; display: flex; align-items: center; gap: 7px;
+  }
+  .course-pilot::before {
+    content: ''; width: 6px; height: 6px; border-radius: 50%;
+    background: var(--brand-teal); flex-shrink: 0;
+  }
+  .course-tags { display: flex; gap: 7px; margin-bottom: 18px; flex-wrap: wrap; }
+  .chip {
+    padding: 5px 12px; border-radius: 999px;
+    font-size: 12px; font-weight: 600;
+    background: var(--bg-soft); color: var(--ink-2);
+  }
+  .course-body .btn { margin-top: auto; align-self: flex-start; }
+
+  /* DASHBOARDS */
+  .dashboards { padding: 100px 0; }
+  .dash-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 56px; align-items: center; }
+  .audience-stack { display: flex; flex-direction: column; gap: 32px; }
+  .audience-label {
+    display: inline-block; padding: 5px 12px;
+    background: var(--teal-pale); color: var(--teal-2);
+    font-size: 12px; font-weight: 700; letter-spacing: 0.05em;
+    border-radius: 999px; margin-bottom: 14px; text-transform: uppercase;
+  }
+  .audience-list { list-style: none; }
+  .audience-list li {
+    font-size: 15px; color: var(--ink-2); font-weight: 500;
+    padding: 7px 0 7px 28px; position: relative; line-height: 1.5;
+  }
+  .audience-list li::before {
+    content: ''; position: absolute; left: 0; top: 10px;
+    width: 16px; height: 16px; border-radius: 50%;
+    background: var(--teal-pale);
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M4 8 L7 11 L12 5' stroke='%230d9488' stroke-width='2' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+    background-repeat: no-repeat; background-position: center; background-size: 12px;
+  }
+  .dash-placeholder {
+    aspect-ratio: 16 / 10; border-radius: 16px;
+    background: linear-gradient(135deg, #e7fbf6 0%, var(--bg-soft) 100%);
+    border: 1px solid var(--line);
+    box-shadow: 0 20px 50px -16px rgba(11,18,32,0.18), 0 8px 20px -8px rgba(11,18,32,0.10);
+    overflow: hidden; position: relative;
+  }
+
+  /* SAFETY */
+  .safety { padding: 100px 0; background: #f7f9fc; border-top: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft); }
+  .safety-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .safety-feature {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: var(--radius); padding: 28px 26px;
+    box-shadow: var(--shadow-sm);
+    transition: transform .25s ease, box-shadow .25s ease;
+  }
+  .safety-feature:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+  .safety-icon {
+    width: 48px; height: 48px; border-radius: 13px;
+    display: flex; align-items: center; justify-content: center; margin-bottom: 18px;
+  }
+  .safety-icon.s1 { background: var(--rose); color: #be185d; }
+  .safety-icon.s2 { background: var(--amber); color: #b45309; }
+  .safety-icon.s3 { background: var(--teal-pale); color: var(--teal-2); }
+  .sf-title { font-size: 18px; font-weight: 700; color: var(--ink); margin-bottom: 8px; }
+  .sf-desc { font-size: 14.5px; color: var(--ink-2); line-height: 1.55; font-weight: 500; }
+
+  /* TRUST */
+  .trust { padding: 56px 0; }
+  .trust-eye { text-align: center; font-size: 12px; font-weight: 700; color: var(--mute); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 28px; }
+  .trust-row { display: flex; justify-content: center; align-items: center; gap: 18px; flex-wrap: wrap; }
+  .trust-logo {
+    min-width: 220px; height: 88px; padding: 0 28px;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 13px; font-weight: 600; color: var(--mute);
+    letter-spacing: 0.02em; box-shadow: var(--shadow-sm);
+  }
+
+  /* FINAL CTA */
+  .final-cta { padding: 110px 0 130px; text-align: center; position: relative; overflow: hidden; background: #f7f9fc; border-top: 1px solid var(--line-soft); }
+  .final-cta::before {
+    content: ''; position: absolute; inset: 0;
+    background:
+      radial-gradient(circle at 28% 50%, rgba(0,216,185,0.10) 0%, transparent 42%),
+      radial-gradient(circle at 72% 50%, rgba(7,51,147,0.07) 0%, transparent 42%);
+    pointer-events: none;
+  }
+  .final-cta-inner { position: relative; max-width: 720px; margin: 0 auto; }
+  .final-cta h2 { font-size: clamp(36px, 4.6vw, 56px); margin-bottom: 16px; font-weight: 800; letter-spacing: -0.03em; }
+  .final-cta p { font-size: 18px; margin-bottom: 32px; color: var(--ink-2); font-weight: 500; }
+  .final-ctas { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+
+  /* FOOTER */
+  .footer { background: var(--surface); border-top: 1px solid var(--line); padding: 56px 0 28px; }
+  .footer-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 40px; flex-wrap: wrap; margin-bottom: 40px; }
+  .footer-tag { font-size: 14px; color: var(--mute); line-height: 1.6; max-width: 300px; margin-top: 14px; }
+  .footer-links { display: flex; gap: 28px; flex-wrap: wrap; font-size: 14px; font-weight: 500; color: var(--ink-2); }
+  .footer-links a:hover { color: var(--teal-2); }
+  .footer-bottom {
+    border-top: 1px solid var(--line); padding-top: 22px;
+    display: flex; justify-content: space-between; align-items: center;
+    flex-wrap: wrap; gap: 16px; font-size: 13px; color: var(--mute);
+  }
+  .footer-bottom-links { display: flex; gap: 20px; }
+  .footer-bottom-links a:hover { color: var(--ink); }
+
+  /* MEDIA FILLS (added with imagery) */
+  .deck-photo, .shot, .mentor-poster {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover; display: block;
+  }
+  .deck-photo { object-position: center; }
+  .shot { object-position: top center; }
+  .cases-visual { overflow: hidden; }
+  .cases-visual .shot { object-position: center; }
+  .mentor-poster { object-position: center top; }
+
+  /* BRAND LOGO */
+  .brand-logo { gap: 0; }
+  .brand-logo-img { height: 30px; width: auto; display: block; }
+  .footer-brand .brand-logo-img { height: 32px; }
+
+  /* MENTOR INTRO VIDEOS */
+  .mentor-video { cursor: pointer; background: #0b1220; }
+  .mentor-play {
+    position: absolute; inset: 0; margin: auto;
+    width: 60px; height: 60px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    background: linear-gradient(100deg, var(--brand-teal) 0%, var(--brand-blue) 100%);
+    box-shadow: 0 10px 26px -6px rgba(7,51,147,0.55);
+    transition: transform .18s ease; z-index: 2;
+  }
+  .mentor-video:hover .mentor-play,
+  .mentor-video:focus-visible .mentor-play { transform: scale(1.09); }
+  .mentor-video:focus-visible { outline: 2px solid var(--brand-blue); outline-offset: 2px; }
+  .mentor-play svg { margin-left: 3px; }
+  .mentor-intro-pill {
+    position: absolute; top: 10px; left: 10px; z-index: 2;
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 4px 11px; border-radius: 999px;
+    background: rgba(11,18,32,0.55); color: #fff;
+    -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px);
+    font-size: 11px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
+  }
+  .mentor-intro-pill .pdot { width: 6px; height: 6px; border-radius: 50%; background: var(--brand-teal); }
+  .mentor-video-el {
+    position: absolute; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover; background: #0b1220; z-index: 3;
+  }
+
+  @media (max-width: 980px) {
+    .nav-links { display: none; }
+    .co-brand { display: none; }
+    .hero-grid { grid-template-columns: 1fr; gap: 48px; }
+    .step-showcase { grid-template-columns: 1fr; gap: 32px; }
+    .cases-split { grid-template-columns: 1fr; gap: 36px; }
+    .dash-grid { grid-template-columns: 1fr; gap: 40px; }
+  }
+  @media (max-width: 640px) {
+    .wrap { padding: 0 20px; }
+    .nav-actions .btn-ghost { display: none; }
+    .hero { padding: 50px 0 60px; }
+    .how { padding: 64px 0; }
+    .conversation-grid { grid-template-columns: 1fr; gap: 18px; }
+    .mentor-grid { grid-template-columns: 1fr; gap: 18px; }
+    .course-grid { grid-template-columns: 1fr; gap: 18px; }
+    .mentors { padding: 64px 0; }
+    .courses { padding: 64px 0; }
+    .cases { padding: 64px 0; }
+    .dashboards { padding: 64px 0; }
+    .safety { padding: 64px 0; }
+    .safety-grid { grid-template-columns: 1fr; gap: 18px; }
+    .footer-top { flex-direction: column; gap: 28px; }
+    .final-cta { padding: 70px 0 84px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV — placeholder; replace with existing GSL site nav -->
+<div class="nav-wrap">
+  <div class="wrap">
+    <nav class="nav">
+      <div class="brand-cluster">
+        <div class="co-brand">
+          <div class="logo-mark">G</div>
+          <span class="gsl">GET SET<br>LEARN</span>
+        </div>
+        <a href="#" class="logo brand-logo" aria-label="talk &amp; learn home">
+          <img src="Final_Logo.png" alt="talk &amp; learn" class="brand-logo-img">
+        </a>
+      </div>
+      <div class="nav-links">
+        <a href="#">Home</a>
+        <a href="#how">How it works</a>
+        <a href="#courses">Courses</a>
+        <a href="#dashboards">For grown-ups</a>
+        <a href="#">Contact</a>
+      </div>
+      <div class="nav-actions">
+        <a href="#" class="btn btn-ghost">Log in</a>
+        <a href="#" class="btn btn-brand"><span>Start free</span></a>
+      </div>
+    </nav>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <div class="hero-tags">
+          <span class="hero-tag"><span class="d teal"></span> Short courses</span>
+          <span class="hero-tag"><span class="d orange"></span> In-depth courses</span>
+          <span class="hero-tag"><span class="d fuchsia"></span> Case studies</span>
+        </div>
+        <h1>The AI learning platform for <span class="kw">future-ready</span> students.</h1>
+        <p class="hero-sub">Future skills taught through stories, deep-dives, and case studies, each led by an AI mentor.</p>
+        <div class="hero-ctas">
+          <a href="#courses" class="btn btn-brand btn-lg"><span>Explore courses →</span></a>
+        </div>
+      </div>
+
+      <div>
+        <div class="deck">
+          <div class="deck-card left">
+            <img class="deck-photo" src="Nykaa_Case_Cover.png" alt="The Nykaa Story case study">
+            <span class="deck-badge">Live</span>
+            <div class="deck-scrim">
+              <div class="deck-name">The Nykaa Story</div>
+              <span class="deck-tag">Case study</span>
+            </div>
+          </div>
+          <div class="deck-card right">
+            <img class="deck-photo" src="Meera.png" alt="Entrepreneurship 101">
+            <span class="deck-badge">Soon</span>
+            <div class="deck-scrim">
+              <div class="deck-name">Entrepreneurship 101</div>
+              <span class="deck-tag">In-depth course</span>
+            </div>
+          </div>
+          <div class="deck-card center">
+            <img class="deck-photo" src="Nikhil_FrontalFrame.png" alt="Empathy short course">
+            <span class="deck-badge">Live</span>
+            <div class="deck-scrim">
+              <div class="deck-name">Empathy</div>
+              <span class="deck-tag">Short course</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow"><span class="dot"></span> How it works</div>
+      <h2><span class="kw">Watch</span>. Read. Then ask anything.</h2>
+      <p class="lede">Every chapter pairs video and text with a mentor who untangles doubts using your child's own interests, and the level of understanding they're actually at.</p>
+    </div>
+
+    <div class="step-showcase">
+      <div class="step-tabs" role="tablist">
+        <button class="step-tab active" data-step="1" role="tab" aria-selected="true">
+          <span class="tab-num">01</span>
+          <span>
+            <span class="tab-title">Watch or read</span>
+            <span class="tab-desc">Each chapter opens with video and text. Pick whichever your child learns best from.</span>
+          </span>
+        </button>
+        <button class="step-tab" data-step="2" role="tab" aria-selected="false">
+          <span class="tab-num">02</span>
+          <span>
+            <span class="tab-title">Ask the mentor</span>
+            <span class="tab-desc">Doubts get answered with examples drawn from your child's interests, at their level.</span>
+          </span>
+        </button>
+        <button class="step-tab" data-step="3" role="tab" aria-selected="false">
+          <span class="tab-num">03</span>
+          <span>
+            <span class="tab-title">Assessment</span>
+            <span class="tab-desc">Each chapter closes with a structured assessment that measures comprehension and pinpoints gaps.</span>
+          </span>
+        </button>
+        <button class="step-tab" data-step="4" role="tab" aria-selected="false">
+          <span class="tab-num">04</span>
+          <span>
+            <span class="tab-title">Report &amp; next steps</span>
+            <span class="tab-desc">Strengths, gaps, and what to try next, sent to the parent portal.</span>
+          </span>
+        </button>
+      </div>
+
+      <div class="step-screen-wrap">
+        <div class="step-screen-panel active" data-step="1"><img class="shot" src="Watch.png" alt="Watch or read the chapter video"></div>
+        <div class="step-screen-panel" data-step="2"><img class="shot" src="Mentor.png" alt="Ask the AI mentor in a character chat"></div>
+        <div class="step-screen-panel" data-step="3"><img class="shot" src="Assessment.png" alt="Chapter assessment quiz"></div>
+        <div class="step-screen-panel" data-step="4"><img class="shot" src="Report.png" alt="Report card with strengths and next steps"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PERSONALISATION -->
+<section class="personal" id="personal">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow"><span class="dot"></span> Hyper personalisation</div>
+      <h2>Same lesson. <span class="kw">Different</span> explanations.</h2>
+      <p class="lede">Each child gets the same learning goal explained through their interests.</p>
+    </div>
+
+    <div class="conversation-grid">
+      <div class="conversation-card">
+        <div class="chat-header">
+          <div class="chat-avatar c1">R</div>
+          <div>
+            <div class="chat-name">Rohit, 11</div>
+            <span class="chat-chip c1">Likes cricket</span>
+          </div>
+        </div>
+        <div class="chat-thread">
+          <div class="chat-bubble user">Why was bullying him wrong?</div>
+          <div class="chat-bubble mentor">He made him feel invisible. Like when your captain ignores you the whole match, that sting? That's the damage bullying does.</div>
+        </div>
+      </div>
+
+      <div class="conversation-card">
+        <div class="chat-header">
+          <div class="chat-avatar c2">M</div>
+          <div>
+            <div class="chat-name">Meera, 12</div>
+            <span class="chat-chip c2">Into manga &amp; anime</span>
+          </div>
+        </div>
+        <div class="chat-thread">
+          <div class="chat-bubble user">What should the bystander have done?</div>
+          <div class="chat-bubble mentor">Spoken up. Like a side character who sees everything but stays silent, staying quiet makes you part of the story too.</div>
+        </div>
+      </div>
+
+      <div class="conversation-card">
+        <div class="chat-header">
+          <div class="chat-avatar c3">A</div>
+          <div>
+            <div class="chat-name">Aarav, 13</div>
+            <span class="chat-chip c3">Learning to code</span>
+          </div>
+        </div>
+        <div class="chat-thread">
+          <div class="chat-bubble user">Why does empathy even matter?</div>
+          <div class="chat-bubble mentor">Think of it as the missing function. Without it, the whole program runs cold.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MENTORS -->
+<section class="mentors" id="mentors">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow"><span class="dot"></span> AI mentors</div>
+      <h2>Different <span class="kw">mentors</span> for different courses.</h2>
+      <p class="lede">From film characters to founders to analysts, each course brings AI personas that guide your child through doubts, projects, and decisions.</p>
+    </div>
+
+    <div class="mentor-grid">
+      <div class="mentor-card">
+        <div class="mentor-frame mentor-video" data-video="intro-nikhil.mp4" role="button" tabindex="0" aria-label="Play Nikhil's introduction">
+          <img class="mentor-poster" src="Nikhil_FrontalFrame.png" alt="Nikhil">
+          <span class="mentor-intro-pill"><span class="pdot"></span> Intro</span>
+          <span class="mentor-play"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M8 5 L19 12 L8 19 Z"/></svg></span>
+        </div>
+        <div class="mentor-name">Nikhil</div>
+        <div class="mentor-role">The Bully</div>
+        <span class="mentor-tag">From Empathy</span>
+      </div>
+      <div class="mentor-card">
+        <div class="mentor-frame mentor-video" data-video="intro-meera.mp4" role="button" tabindex="0" aria-label="Play Meera Kapoor's introduction">
+          <img class="mentor-poster" src="Meera.png" alt="Meera Kapoor">
+          <span class="mentor-intro-pill"><span class="pdot"></span> Intro</span>
+          <span class="mentor-play"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M8 5 L19 12 L8 19 Z"/></svg></span>
+        </div>
+        <div class="mentor-name">Meera Kapoor</div>
+        <div class="mentor-role">Startup Coach</div>
+        <span class="mentor-tag">From Entrepreneurship 101</span>
+      </div>
+      <div class="mentor-card">
+        <div class="mentor-frame mentor-video" data-video="intro-rohan.mp4" role="button" tabindex="0" aria-label="Play Rohan Shah's introduction">
+          <img class="mentor-poster" src="Rohan.png" alt="Rohan Shah">
+          <span class="mentor-intro-pill"><span class="pdot"></span> Intro</span>
+          <span class="mentor-play"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M8 5 L19 12 L8 19 Z"/></svg></span>
+        </div>
+        <div class="mentor-name">Rohan Shah</div>
+        <div class="mentor-role">Venture Capitalist</div>
+        <span class="mentor-tag">From Case Study</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CASE STUDIES -->
+<section class="cases" id="cases">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow"><span class="dot"></span> Solving Case Studies</div>
+      <h2>Real cases. Live debate. <span class="kw">No easy answers</span>.</h2>
+      <p class="lede">A live, AI-moderated group discussion where students debate a real-world case out loud, and the AI guides without ever giving away the answer.</p>
+    </div>
+
+    <div class="cases-split">
+      <div class="cases-visual"><img class="shot" src="Nykaa_Discussion.png" alt="Live, AI-moderated Nykaa case discussion"></div>
+      <div class="cases-content">
+        <div class="socratic-callout">
+          <div class="socratic-label">Socratic, not generative</div>
+          <p>The AI moderator guides participants to the answer, never gives it away.</p>
+        </div>
+        <div class="case-features">
+          <div class="case-feature">
+            <div class="cf-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 17 L9 12 L13 15 L20 7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="4" cy="17" r="1.6" fill="currentColor" stroke="none"/><circle cx="20" cy="7" r="1.6" fill="currentColor" stroke="none"/></svg>
+            </div>
+            <div>
+              <div class="cf-title">Keeps discussions on track</div>
+              <div class="cf-desc">Subtly redirects the conversation when it drifts, without breaking the flow.</div>
+            </div>
+          </div>
+          <div class="case-feature">
+            <div class="cf-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12 H7 L10 5 L14 19 L17 12 H21" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <div>
+              <div class="cf-title">Real-time monitoring</div>
+              <div class="cf-desc">Continuously reads the discussion dynamics and adjusts in the moment.</div>
+            </div>
+          </div>
+          <div class="case-feature">
+            <div class="cf-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="8" x2="20" y2="8" stroke-linecap="round"/><line x1="4" y1="16" x2="20" y2="16" stroke-linecap="round"/><circle cx="9" cy="8" r="2.6" fill="white"/><circle cx="15" cy="16" r="2.6" fill="white"/></svg>
+            </div>
+            <div>
+              <div class="cf-title">Adaptive facilitation</div>
+              <div class="cf-desc">Support shifts based on what the group needs, keeping the debate balanced.</div>
+            </div>
+          </div>
+          <div class="case-feature">
+            <div class="cf-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="21" x2="21" y2="21"/><rect x="5" y="11" width="3.6" height="8" rx="1" fill="currentColor" stroke="none"/><rect x="10.4" y="6" width="3.6" height="13" rx="1" fill="currentColor" stroke="none"/><rect x="15.8" y="14" width="3.6" height="5" rx="1" fill="currentColor" stroke="none"/></svg>
+            </div>
+            <div>
+              <div class="cf-title">Instant assessment</div>
+              <div class="cf-desc">The moment the discussion ends, each student gets a structured score with strengths and next steps.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- COURSE LIBRARY -->
+<section class="courses" id="courses">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow"><span class="dot"></span> Course library</div>
+      <h2>One platform. Many <span class="kw">ways to learn</span>.</h2>
+      <p class="lede">Short courses, in-depth courses, and case studies, each led by an AI mentor.</p>
+    </div>
+
+    <div class="course-grid">
+      <div class="course-card">
+        <div class="course-thumb empathy"><img class="shot" src="Movie_-_Key_Image.png" alt="Empathy interactive movie"><span class="course-badge live">Live</span></div>
+        <div class="course-body">
+          <h3 class="course-name">Empathy</h3>
+          <p class="course-desc">Social-emotional learning through an interactive movie &amp; dialogue.</p>
+          <div class="course-pilot">100+ students piloted across Maharashtra &amp; Gujarat</div>
+          <div class="course-tags">
+            <span class="chip">Short course</span>
+            <span class="chip">Ages 9–14</span>
+          </div>
+          <a href="#" class="btn btn-brand"><span>Start the course →</span></a>
+        </div>
+      </div>
+
+      <div class="course-card">
+        <div class="course-thumb entre"><span class="course-badge soon">Coming soon</span></div>
+        <div class="course-body">
+          <h3 class="course-name">Entrepreneurship 101</h3>
+          <p class="course-desc">Explore how ideas turn into ventures and learn to think like an entrepreneur.</p>
+          <div class="course-tags">
+            <span class="chip">In-depth course</span>
+            <span class="chip">Ages 12–17</span>
+            <span class="chip">8 chapters</span>
+          </div>
+          <a href="#" class="btn btn-soft">Get notified →</a>
+        </div>
+      </div>
+
+      <div class="course-card">
+        <div class="course-thumb nykaa"><img class="shot" src="Nykaa_Case_Cover.png" alt="The Nykaa Story case study"><span class="course-badge live">Live</span></div>
+        <div class="course-body">
+          <h3 class="course-name">The Nykaa Story</h3>
+          <p class="course-desc">Debate how Falguni Nayar spotted a market gap and built Nykaa into a national brand.</p>
+          <div class="course-tags">
+            <span class="chip">Case study</span>
+            <span class="chip">Ages 12+</span>
+            <span class="chip">Live discussion</span>
+          </div>
+          <a href="#" class="btn btn-brand"><span>Join a discussion →</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DASHBOARDS -->
+<section class="dashboards" id="dashboards">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow"><span class="dot"></span> For teachers and parents</div>
+      <h2>A window into the child's <span class="kw">growth</span>.</h2>
+    </div>
+
+    <div class="dash-grid">
+      <div class="audience-stack">
+        <div>
+          <span class="audience-label">For teachers</span>
+          <ul class="audience-list">
+            <li>Full class visibility and progress summaries</li>
+            <li>Access to individual conversation transcripts</li>
+            <li>Intervention alerts and performance insights</li>
+          </ul>
+        </div>
+        <div>
+          <span class="audience-label">For parents</span>
+          <ul class="audience-list">
+            <li>Dedicated parent portal with child's progress</li>
+            <li>Supervision of chat interactions</li>
+            <li>Reports and improvement recommendations</li>
+          </ul>
+        </div>
+      </div>
+      <div class="dash-placeholder"><img class="shot" src="Report.png" alt="Parent and teacher progress report"></div>
+    </div>
+  </div>
+</section>
+
+<!-- SAFETY -->
+<section class="safety" id="safety">
+  <div class="wrap">
+    <div class="section-head">
+      <div class="eyebrow"><span class="dot"></span> Safety &amp; guardrails</div>
+      <h2>All conversations stay on topic. <span class="kw">Always</span>!</h2>
+      <p class="lede">Built for age-appropriate, learning-focused interactions, always.</p>
+    </div>
+    <div class="safety-grid">
+      <div class="safety-feature">
+        <div class="safety-icon s1">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 2 L3 6 V12 C3 17 7 21 12 22 C17 21 21 17 21 12 V6 Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        </div>
+        <h3 class="sf-title">Self-harm &amp; abuse</h3>
+        <p class="sf-desc">Any mention of self-harm, harassment, or abuse is detected and blocked in real time, and flagged to the school for follow-up.</p>
+      </div>
+      <div class="safety-feature">
+        <div class="safety-icon s2">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="1.6" fill="currentColor"/></svg>
+        </div>
+        <h3 class="sf-title">Distraction filter</h3>
+        <p class="sf-desc">Off-topic prompts, jailbreak attempts, and general chit-chat are gently redirected back so learning stays on track.</p>
+      </div>
+      <div class="safety-feature">
+        <div class="safety-icon s3">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M2 12 C5 6 9 4 12 4 C15 4 19 6 22 12 C19 18 15 20 12 20 C9 20 5 18 2 12 Z" stroke="currentColor" stroke-width="2"/><circle cx="12" cy="12" r="3" fill="currentColor"/></svg>
+        </div>
+        <h3 class="sf-title">Unsafe interactions</h3>
+        <p class="sf-desc">Every transcript is screened against age-appropriate K-12 content policies, moderated continuously, not just at the end.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TRUST -->
+<section class="trust">
+  <div class="wrap">
+    <div class="trust-eye">Built and backed by</div>
+    <div class="trust-row">
+      <span class="trust-logo">Get Set Learn logo</span>
+      <span class="trust-logo">Arvind Mafatlal Group logo</span>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="wrap">
+    <div class="final-cta-inner">
+      <h2>Turn your child's screen time into <span class="kw">learning time</span>.</h2>
+      <p>Try the suite free. No card. Two minutes to set up.</p>
+      <div class="final-ctas">
+        <a href="#" class="btn btn-brand btn-lg"><span>Create your free account →</span></a>
+        <a href="#" class="btn btn-soft btn-lg">Schools? Talk to us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER — placeholder; replace with existing GSL site footer -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <a href="#" class="logo brand-logo" aria-label="talk &amp; learn home">
+          <img src="Final_Logo.png" alt="talk &amp; learn" class="brand-logo-img">
+        </a>
+        <p class="footer-tag">The AI learning platform for future-ready students. A Get Set Learn venture.</p>
+      </div>
+      <div class="footer-links">
+        <a href="#how">How it works</a>
+        <a href="#courses">Courses</a>
+        <a href="#cases">Case studies</a>
+        <a href="#dashboards">For grown-ups</a>
+        <a href="#safety">Safety</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 Get Set Learn · An Arvind Mafatlal Group company</div>
+      <div class="footer-bottom-links">
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Child safety</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (function() {
+    const tabs = document.querySelectorAll('.step-tab');
+    const panels = document.querySelectorAll('.step-screen-panel');
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => {
+        const step = tab.dataset.step;
+        tabs.forEach(t => {
+          t.classList.toggle('active', t === tab);
+          t.setAttribute('aria-selected', t === tab ? 'true' : 'false');
+        });
+        panels.forEach(p => p.classList.toggle('active', p.dataset.step === step));
+      });
+    });
+
+    // Mentor intro videos: swap poster for an inline player on click/Enter/Space
+    function playMentorVideo(card) {
+      if (card.dataset.played) return;
+      card.dataset.played = '1';
+      const src = card.getAttribute('data-video');
+      const posterEl = card.querySelector('.mentor-poster');
+      const poster = posterEl ? posterEl.getAttribute('src') : '';
+      const v = document.createElement('video');
+      v.className = 'mentor-video-el';
+      v.src = src;
+      if (poster) v.setAttribute('poster', poster);
+      v.controls = true;
+      v.autoplay = true;
+      v.playsInline = true;
+      const btn = card.querySelector('.mentor-play');
+      if (btn) btn.remove();
+      const pill = card.querySelector('.mentor-intro-pill');
+      if (pill) pill.remove();
+      card.appendChild(v);
+      const p = v.play();
+      if (p && p.catch) p.catch(function(){});
+    }
+    document.querySelectorAll('.mentor-video').forEach(card => {
+      card.addEventListener('click', () => playMentorVideo(card));
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); playMentorVideo(card); }
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>
