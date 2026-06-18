@@ -229,7 +229,7 @@
   /* main video player */
   .hc-video {
     position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-    width: min(440px, 82%); aspect-ratio: 16 / 10; z-index: 3;
+    width: min(490px, 88%); aspect-ratio: 16 / 9; z-index: 3;
     border-radius: 22px; overflow: hidden; cursor: pointer;
     border: 1px solid rgba(11,18,32,0.06);
     box-shadow: 0 34px 74px -18px rgba(11,18,32,0.36), 0 12px 26px -12px rgba(11,18,32,0.16);
@@ -267,16 +267,23 @@
     background: rgba(255,255,255,0.95); color: var(--ink-2);
   }
   .hc-pill.live::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--brand-teal); margin-right: 6px; vertical-align: middle; }
-  /* peeking report-card snippet */
-  .hc-report {
-    position: absolute; top: 14px; right: 2px; z-index: 1;
-    width: min(204px, 44%); aspect-ratio: 16 / 11;
-    border-radius: 16px; overflow: hidden; transform: rotate(6deg);
-    border: 1px solid rgba(11,18,32,0.06);
-    box-shadow: 0 22px 50px -16px rgba(11,18,32,0.28);
-    background: #fff;
+  /* main score badge (from the report card) */
+  .hc-score {
+    position: absolute; top: 50px; right: 0; z-index: 4;
+    display: flex; align-items: center; gap: 12px;
+    background: #fff; border: 1px solid var(--line); border-radius: 16px;
+    padding: 12px 16px 12px 12px; box-shadow: 0 20px 44px -14px rgba(11,18,32,0.26);
   }
-  .hc-report img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
+  .hc-ring {
+    position: relative; width: 60px; height: 60px; border-radius: 50%; flex-shrink: 0;
+    background: conic-gradient(var(--brand-teal) 0% 92%, #e7e9f1 92% 100%);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .hc-ring::before { content: ''; position: absolute; inset: 8px; border-radius: 50%; background: #fff; }
+  .hc-ring span { position: relative; font-size: 16px; font-weight: 800; color: var(--brand-blue); }
+  .hc-ring span i { font-size: 10px; font-style: normal; font-weight: 700; }
+  .hc-score-h { font-size: 14px; font-weight: 800; color: var(--ink); line-height: 1.2; }
+  .hc-score-s { font-size: 11.5px; color: var(--mute); font-weight: 500; margin-top: 2px; }
   /* floating AI chat explanation */
   .hc-chat {
     position: absolute; left: 0; bottom: 24px; z-index: 4; width: min(252px, 62%);
@@ -285,10 +292,8 @@
     padding: 12px 14px; box-shadow: 0 18px 40px -14px rgba(11,18,32,0.24);
   }
   .hc-chat-av {
-    width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
-    display: flex; align-items: center; justify-content: center;
-    color: #fff; font-weight: 800; font-size: 11px;
-    background: linear-gradient(160deg, #5eead4 0%, #00D8B9 100%);
+    width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
+    object-fit: cover; object-position: center top; display: block;
   }
   .hc-chat-text { font-size: 12.5px; line-height: 1.45; color: var(--ink-2); font-weight: 500; }
   @media (max-width: 640px) {
@@ -754,8 +759,12 @@
 
       <div>
         <div class="hero-collage">
-          <div class="hc-report">
-            <img src="Report.png" alt="Student performance report card">
+          <div class="hc-score">
+            <div class="hc-ring"><span>92<i>%</i></span></div>
+            <div>
+              <div class="hc-score-h">Case score</div>
+              <div class="hc-score-s">Instant &amp; detailed</div>
+            </div>
           </div>
           <div class="hc-video" role="img" aria-label="Empathy interactive movie">
             <img src="Movie_-_Key_Image.png" alt="Empathy interactive movie">
@@ -766,7 +775,7 @@
             <div class="hc-vbar"></div>
           </div>
           <div class="hc-chat">
-            <div class="hc-chat-av">AI</div>
+            <img class="hc-chat-av" src="Nikhil_FrontalFrame.png" alt="Nikhil">
             <div class="hc-chat-text">Think of empathy as the missing function — without it, the program runs cold.</div>
           </div>
         </div>
