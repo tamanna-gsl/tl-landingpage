@@ -219,6 +219,67 @@
   }
   .deck-card.center:hover { transform: translateY(-22px); }
 
+  /* HERO COLLAGE (layered) */
+  .hero-collage { position: relative; width: 100%; max-width: 460px; margin: 0 auto; min-height: 480px; }
+  .hero-collage::before {
+    content: ''; position: absolute; inset: 4% 2%; z-index: 0;
+    background: radial-gradient(58% 55% at 52% 48%, rgba(0,216,185,0.22) 0%, rgba(7,51,147,0.13) 46%, transparent 72%);
+    filter: blur(10px); pointer-events: none;
+  }
+  .hc-card {
+    position: absolute; overflow: hidden; border-radius: 22px;
+    border: 1px solid rgba(11,18,32,0.06);
+    box-shadow: 0 26px 60px -18px rgba(11,18,32,0.30), 0 8px 20px -10px rgba(11,18,32,0.12);
+    transition: transform .3s cubic-bezier(.2,.7,.2,1);
+  }
+  .hc-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .hc-main { top: 50%; left: 50%; transform: translate(-52%, -50%); width: 250px; aspect-ratio: 3 / 4; z-index: 3; }
+  .hc-back { top: 30px; right: 24px; width: 188px; aspect-ratio: 3 / 4; transform: rotate(5deg); z-index: 1; }
+  .hc-scrim {
+    position: absolute; left: 0; right: 0; bottom: 0; z-index: 2;
+    padding: 34px 14px 14px;
+    background: linear-gradient(to top, rgba(7,18,32,0.82) 0%, rgba(7,18,32,0.30) 55%, transparent 100%);
+  }
+  .hc-pill {
+    position: absolute; top: 12px; left: 12px; z-index: 2;
+    padding: 4px 10px; border-radius: 999px;
+    font-size: 10px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+    background: rgba(255,255,255,0.95); color: var(--ink-2);
+  }
+  .hc-pill.live::before { content: ''; display: inline-block; width: 6px; height: 6px; border-radius: 50%; background: var(--brand-teal); margin-right: 6px; vertical-align: middle; }
+  .hc-label { font-size: 16px; font-weight: 700; color: #fff; line-height: 1.2; }
+  .hc-label span { display: block; margin-top: 6px; font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.85); }
+  .hc-stat {
+    position: absolute; top: 40px; left: 18px; z-index: 4;
+    display: flex; align-items: center; gap: 10px;
+    background: #fff; border: 1px solid var(--line); border-radius: 14px;
+    padding: 10px 14px; box-shadow: 0 18px 40px -14px rgba(11,18,32,0.22);
+  }
+  .hc-stat-score { font-size: 20px; font-weight: 800; color: var(--brand-blue); line-height: 1; }
+  .hc-stat-score span { font-size: 12px; }
+  .hc-stat-h { font-size: 12px; font-weight: 700; color: var(--ink); line-height: 1.2; }
+  .hc-stat-s { font-size: 11px; color: var(--mute); font-weight: 500; }
+  .hc-chat {
+    position: absolute; left: 0; bottom: 54px; z-index: 4; width: 232px;
+    display: flex; gap: 10px;
+    background: #fff; border: 1px solid var(--line); border-radius: 16px;
+    padding: 12px 14px; box-shadow: 0 18px 40px -14px rgba(11,18,32,0.22);
+  }
+  .hc-chat-av {
+    width: 30px; height: 30px; border-radius: 50%; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-weight: 800; font-size: 11px;
+    background: linear-gradient(160deg, #5eead4 0%, #00D8B9 100%);
+  }
+  .hc-chat-text { font-size: 12.5px; line-height: 1.45; color: var(--ink-2); font-weight: 500; }
+  @media (max-width: 640px) {
+    .hero-collage { min-height: 430px; max-width: 360px; }
+    .hc-main { width: 208px; }
+    .hc-back { width: 150px; top: 20px; right: 6px; }
+    .hc-chat { width: 196px; bottom: 36px; }
+    .hc-stat { top: 26px; left: 4px; }
+  }
+
   /* SECTION HEAD */
   .section-head { text-align: center; max-width: 760px; margin: 0 auto 64px; }
   .section-head h2 { margin-top: 18px; }
@@ -676,30 +737,27 @@
       </div>
 
       <div>
-        <div class="deck">
-          <div class="deck-card left">
-            <img class="deck-photo" src="Nykaa_Case_Cover.png" alt="The Nykaa Story case study">
-            <span class="deck-badge">Live</span>
-            <div class="deck-scrim">
-              <div class="deck-name">The Nykaa Story</div>
-              <span class="deck-tag">Case study</span>
+        <div class="hero-collage">
+          <div class="hc-card hc-back">
+            <img src="Entrepreneurship.png" alt="Entrepreneurship 101">
+            <span class="hc-pill">Soon</span>
+            <div class="hc-scrim"><div class="hc-label">Entrepreneurship 101<span>In-depth course</span></div></div>
+          </div>
+          <div class="hc-card hc-main">
+            <img src="Nikhil_FrontalFrame.png" alt="Empathy short course">
+            <span class="hc-pill live">Live</span>
+            <div class="hc-scrim"><div class="hc-label">Empathy<span>Short course</span></div></div>
+          </div>
+          <div class="hc-stat">
+            <div class="hc-stat-score">92<span>%</span></div>
+            <div>
+              <div class="hc-stat-h">Case score</div>
+              <div class="hc-stat-s">Instant &amp; detailed</div>
             </div>
           </div>
-          <div class="deck-card right">
-            <img class="deck-photo" src="Entrepreneurship.png" alt="Entrepreneurship 101">
-            <span class="deck-badge">Soon</span>
-            <div class="deck-scrim">
-              <div class="deck-name">Entrepreneurship 101</div>
-              <span class="deck-tag">In-depth course</span>
-            </div>
-          </div>
-          <div class="deck-card center">
-            <img class="deck-photo" src="Nikhil_FrontalFrame.png" alt="Empathy short course">
-            <span class="deck-badge">Live</span>
-            <div class="deck-scrim">
-              <div class="deck-name">Empathy</div>
-              <span class="deck-tag">Short course</span>
-            </div>
+          <div class="hc-chat">
+            <div class="hc-chat-av">AI</div>
+            <div class="hc-chat-text">Think of empathy as the missing function — without it, the program runs cold.</div>
           </div>
         </div>
       </div>
