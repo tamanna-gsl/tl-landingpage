@@ -507,6 +507,36 @@
   /* Course thumbnails are photos/covers, so cropping to fill is fine */
   .course-thumb .shot { object-fit: cover; object-position: top center; padding: 0; }
 
+  /* CASE STUDY SLIDESHOW */
+  .cases-slide {
+    position: absolute; inset: 0;
+    opacity: 0; visibility: hidden;
+    transition: opacity .55s ease, visibility .55s ease;
+  }
+  .cases-slide.active { opacity: 1; visibility: visible; }
+  .slide-nav {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 38px; height: 38px; border-radius: 50%; z-index: 3;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(255,255,255,0.9); color: var(--ink);
+    border: 1px solid var(--line); box-shadow: var(--shadow);
+    font-size: 22px; line-height: 1; padding-bottom: 3px;
+    transition: background .2s ease, transform .2s ease;
+  }
+  .slide-nav:hover { background: #fff; transform: translateY(-50%) scale(1.06); }
+  .slide-nav.prev { left: 12px; }
+  .slide-nav.next { right: 12px; }
+  .slide-dots {
+    position: absolute; bottom: 12px; left: 0; right: 0; z-index: 3;
+    display: flex; gap: 7px; justify-content: center;
+  }
+  .slide-dots .dot {
+    width: 8px; height: 8px; border-radius: 999px;
+    background: rgba(11,18,32,0.22);
+    transition: background .25s ease, width .25s ease;
+  }
+  .slide-dots .dot.active { background: var(--brand-teal); width: 22px; }
+
   /* BRAND LOGO */
   .brand-logo { gap: 0; }
   .brand-logo-img { height: 30px; width: auto; display: block; }
@@ -766,7 +796,18 @@
     </div>
 
     <div class="cases-split">
-      <div class="cases-visual"><img class="shot" src="Nykaa_Discussion.png" alt="Live, AI-moderated Nykaa case discussion"></div>
+      <div class="cases-visual cases-slider" aria-roledescription="carousel" aria-label="Case study walkthrough">
+        <div class="cases-slide active"><img class="shot" src="Nykaa_Case_Cover.png" alt="The Nykaa Story case study cover"></div>
+        <div class="cases-slide"><img class="shot" src="Nykaa_Discussion.png" alt="Live, AI-moderated Nykaa case discussion"></div>
+        <div class="cases-slide"><img class="shot" src="Report.png" alt="Structured score report after the discussion"></div>
+        <button class="slide-nav prev" type="button" aria-label="Previous screenshot">‹</button>
+        <button class="slide-nav next" type="button" aria-label="Next screenshot">›</button>
+        <div class="slide-dots">
+          <button class="dot active" type="button" aria-label="Show slide 1"></button>
+          <button class="dot" type="button" aria-label="Show slide 2"></button>
+          <button class="dot" type="button" aria-label="Show slide 3"></button>
+        </div>
+      </div>
       <div class="cases-content">
         <div class="socratic-callout">
           <div class="socratic-label">Socratic, not generative</div>
@@ -1003,6 +1044,30 @@
         });
         panels.forEach(p => p.classList.toggle('active', p.dataset.step === step));
       });
+    });
+
+    // Case study slideshow: auto-advancing, with arrows + dots
+    document.querySelectorAll('.cases-slider').forEach(slider => {
+      const slides = slider.querySelectorAll('.cases-slide');
+      const dots = slider.querySelectorAll('.slide-dots .dot');
+      if (!slides.length) return;
+      let current = 0, timer = null;
+      const show = n => {
+        current = (n + slides.length) % slides.length;
+        slides.forEach((s, i) => s.classList.toggle('active', i === current));
+        dots.forEach((d, i) => d.classList.toggle('active', i === current));
+      };
+      const start = () => { timer = setInterval(() => show(current + 1), 5000); };
+      const stop = () => { clearInterval(timer); };
+      const reset = () => { stop(); start(); };
+      const prev = slider.querySelector('.slide-nav.prev');
+      const next = slider.querySelector('.slide-nav.next');
+      if (prev) prev.addEventListener('click', () => { show(current - 1); reset(); });
+      if (next) next.addEventListener('click', () => { show(current + 1); reset(); });
+      dots.forEach((d, i) => d.addEventListener('click', () => { show(i); reset(); }));
+      slider.addEventListener('mouseenter', stop);
+      slider.addEventListener('mouseleave', start);
+      show(0); start();
     });
   })();
 </script>
