@@ -282,15 +282,18 @@
   .hc-ring::before { content: ''; position: absolute; inset: 8px; border-radius: 50%; background: #fff; }
   .hc-ring span { position: relative; font-size: 16px; font-weight: 800; color: var(--brand-blue); }
   .hc-ring span i { font-size: 10px; font-style: normal; font-weight: 700; }
+  .hc-score-tag { font-size: 9.5px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: var(--teal-2); margin-bottom: 3px; }
   .hc-score-h { font-size: 14px; font-weight: 800; color: var(--ink); line-height: 1.2; }
   .hc-score-s { font-size: 11.5px; color: var(--mute); font-weight: 500; margin-top: 2px; }
   /* floating AI chat explanation */
   .hc-chat {
-    position: absolute; left: 0; bottom: 24px; z-index: 4; width: min(252px, 62%);
-    display: flex; gap: 10px;
+    position: absolute; left: 0; bottom: 24px; z-index: 4; width: min(258px, 64%);
+    display: flex; align-items: flex-start; gap: 10px;
     background: #fff; border: 1px solid var(--line); border-radius: 16px;
     padding: 12px 14px; box-shadow: 0 18px 40px -14px rgba(11,18,32,0.24);
   }
+  .hc-chat-name { font-size: 11px; font-weight: 700; color: var(--ink); margin-bottom: 3px; }
+  .hc-chat-name span { color: var(--mute); font-weight: 600; }
   .hc-chat-av {
     width: 36px; height: 36px; border-radius: 50%; flex-shrink: 0;
     object-fit: cover; object-position: center top; display: block;
@@ -762,6 +765,7 @@
           <div class="hc-score">
             <div class="hc-ring"><span>88<i>%</i></span></div>
             <div>
+              <div class="hc-score-tag">Assessment</div>
               <div class="hc-score-h">Overall score</div>
               <div class="hc-score-s">Chapter mastery</div>
             </div>
@@ -776,7 +780,10 @@
           </div>
           <div class="hc-chat">
             <img class="hc-chat-av" src="Nikhil_FrontalFrame.png" alt="Nikhil">
-            <div class="hc-chat-text">Think of empathy as the missing function — without it, the program runs cold.</div>
+            <div>
+              <div class="hc-chat-name">Nikhil <span>· AI mentor</span></div>
+              <div class="hc-chat-text">Think of empathy as the missing function — without it, the program runs cold.</div>
+            </div>
           </div>
         </div>
       </div>
