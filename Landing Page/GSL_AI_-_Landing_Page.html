@@ -467,22 +467,25 @@
   .b-socratic { background: var(--teal-pale); border-color: var(--teal-soft); justify-content: center; }
   .b-socratic p { font-size: 15px; color: var(--ink-2); font-weight: 500; line-height: 1.5; margin-top: 6px; }
   .b-tile .cf-icon { margin-bottom: 14px; }
-  .b-cap {
-    position: absolute; left: 0; right: 0; bottom: 0; z-index: 1;
-    padding: 32px 22px 20px;
-    background: linear-gradient(to top, rgba(7,18,32,0.88) 0%, rgba(7,18,32,0.4) 50%, transparent 100%);
-  }
+  /* Case Focus tile: full screenshot (no crop) + a solid caption bar */
+  .b-shot { display: flex; flex-direction: column; }
+  .b-shot-media { position: relative; flex: 1 1 auto; min-height: 0; background: #f3f5fa; }
+  .b-shot-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+  .b-cap { background: #0b1220; padding: 18px 22px; }
   .b-cap-title { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 4px; line-height: 1.2; }
-  .b-cap-desc { font-size: 13.5px; color: rgba(255,255,255,0.85); line-height: 1.45; font-weight: 500; }
-  /* report screenshot: show the whole thing, never crop the cards */
-  .b-shot2 { padding: 14px; }
-  .b-shot2 .b-img { object-fit: contain; }
+  .b-cap-desc { font-size: 13.5px; color: rgba(255,255,255,0.82); line-height: 1.45; font-weight: 500; }
+  /* wide feature tiles: icon beside text */
+  .b-feat { flex-direction: row; align-items: flex-start; gap: 16px; }
+  .b-feat .cf-icon { margin-bottom: 0; }
+  /* report screenshot: large tile, zoomed to fill (left cropped to fit) */
+  .b-shot2 { grid-column: span 2; grid-row: span 2; }
+  .b-shot2 .b-img { object-fit: cover; object-position: right center; }
   @media (max-width: 980px) {
     .bento { grid-template-columns: repeat(2, 1fr); }
   }
   @media (max-width: 640px) {
     .bento { grid-template-columns: 1fr; grid-auto-rows: minmax(150px, auto); }
-    .b-shot { grid-column: span 1; grid-row: span 2; }
+    .b-shot, .b-shot2 { grid-column: span 1; grid-row: span 2; }
     .b-wide { grid-column: span 1; }
   }
 
@@ -1001,55 +1004,55 @@
 
     <div class="bento">
       <div class="b-tile b-shot">
-        <img class="b-img" src="Case_Focus.png" alt="AI moderator keeping the discussion on track">
+        <div class="b-shot-media"><img src="Case_Focus.png" alt="AI moderator keeping the discussion on track"></div>
         <div class="b-cap">
           <div class="b-cap-title">Keeps discussions on track</div>
           <div class="b-cap-desc">Subtly redirects the conversation when it drifts, without breaking the flow.</div>
         </div>
       </div>
+      <div class="b-tile b-shot2">
+        <img class="b-img" src="Performance_Eval_3.png" alt="Case-specific analysis breakdown in the instant report">
+        <span class="b-shot-label">Instant report</span>
+      </div>
       <div class="b-tile b-wide b-socratic">
         <div class="socratic-label">Socratic, not generative</div>
         <p>The AI moderator guides participants to the answer, never gives it away.</p>
       </div>
-          <div class="b-tile">
-            <div class="cf-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11 a7 7 0 0 0 14 0" stroke-linecap="round"/><line x1="12" y1="18" x2="12" y2="21" stroke-linecap="round"/></svg>
-            </div>
-            <div>
-              <div class="cf-title">Live, AI-moderated discussion</div>
-              <div class="cf-desc">Students debate a real-world case out loud, guided by an AI moderator.</div>
-            </div>
-          </div>
-          <div class="b-tile">
-            <div class="cf-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12 H7 L10 5 L14 19 L17 12 H21" stroke-linecap="round" stroke-linejoin="round"/></svg>
-            </div>
-            <div>
-              <div class="cf-title">Real-time monitoring</div>
-              <div class="cf-desc">Continuously reads the discussion dynamics and adjusts in the moment.</div>
-            </div>
-          </div>
-          <div class="b-tile">
-            <div class="cf-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="8" x2="20" y2="8" stroke-linecap="round"/><line x1="4" y1="16" x2="20" y2="16" stroke-linecap="round"/><circle cx="9" cy="8" r="2.6" fill="white"/><circle cx="15" cy="16" r="2.6" fill="white"/></svg>
-            </div>
-            <div>
-              <div class="cf-title">Adaptive facilitation</div>
-              <div class="cf-desc">Support shifts based on what the group needs, keeping the debate balanced.</div>
-            </div>
-          </div>
-          <div class="b-tile">
-            <div class="cf-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="21" x2="21" y2="21"/><rect x="5" y="11" width="3.6" height="8" rx="1" fill="currentColor" stroke="none"/><rect x="10.4" y="6" width="3.6" height="13" rx="1" fill="currentColor" stroke="none"/><rect x="15.8" y="14" width="3.6" height="5" rx="1" fill="currentColor" stroke="none"/></svg>
-            </div>
-            <div>
-              <div class="cf-title">Instant assessment</div>
-              <div class="cf-desc">The moment the discussion ends, each student gets a structured score with strengths and next steps.</div>
-            </div>
-          </div>
-      <div class="b-tile b-wide b-shot2">
-        <img class="b-img" src="Performance_Eval_3.png" alt="Case-specific analysis breakdown in the instant report">
-        <span class="b-shot-label">Instant report</span>
+      <div class="b-tile">
+        <div class="cf-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11 a7 7 0 0 0 14 0" stroke-linecap="round"/><line x1="12" y1="18" x2="12" y2="21" stroke-linecap="round"/></svg>
+        </div>
+        <div>
+          <div class="cf-title">Live, AI-moderated discussion</div>
+          <div class="cf-desc">Students debate a real-world case out loud, guided by an AI moderator.</div>
+        </div>
+      </div>
+      <div class="b-tile">
+        <div class="cf-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12 H7 L10 5 L14 19 L17 12 H21" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </div>
+        <div>
+          <div class="cf-title">Real-time monitoring</div>
+          <div class="cf-desc">Continuously reads the discussion dynamics and adjusts in the moment.</div>
+        </div>
+      </div>
+      <div class="b-tile b-wide b-feat">
+        <div class="cf-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="4" y1="8" x2="20" y2="8" stroke-linecap="round"/><line x1="4" y1="16" x2="20" y2="16" stroke-linecap="round"/><circle cx="9" cy="8" r="2.6" fill="white"/><circle cx="15" cy="16" r="2.6" fill="white"/></svg>
+        </div>
+        <div>
+          <div class="cf-title">Adaptive facilitation</div>
+          <div class="cf-desc">Support shifts based on what the group needs, keeping the debate balanced.</div>
+        </div>
+      </div>
+      <div class="b-tile b-wide b-feat">
+        <div class="cf-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="21" x2="21" y2="21"/><rect x="5" y="11" width="3.6" height="8" rx="1" fill="currentColor" stroke="none"/><rect x="10.4" y="6" width="3.6" height="13" rx="1" fill="currentColor" stroke="none"/><rect x="15.8" y="14" width="3.6" height="5" rx="1" fill="currentColor" stroke="none"/></svg>
+        </div>
+        <div>
+          <div class="cf-title">Instant assessment</div>
+          <div class="cf-desc">The moment the discussion ends, each student gets a structured score with strengths and next steps.</div>
+        </div>
       </div>
     </div>
   </div>
