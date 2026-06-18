@@ -467,6 +467,16 @@
   .b-socratic { background: var(--teal-pale); border-color: var(--teal-soft); justify-content: center; }
   .b-socratic p { font-size: 15px; color: var(--ink-2); font-weight: 500; line-height: 1.5; margin-top: 6px; }
   .b-tile .cf-icon { margin-bottom: 14px; }
+  .b-cap {
+    position: absolute; left: 0; right: 0; bottom: 0; z-index: 1;
+    padding: 32px 22px 20px;
+    background: linear-gradient(to top, rgba(7,18,32,0.88) 0%, rgba(7,18,32,0.4) 50%, transparent 100%);
+  }
+  .b-cap-title { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 4px; line-height: 1.2; }
+  .b-cap-desc { font-size: 13.5px; color: rgba(255,255,255,0.85); line-height: 1.45; font-weight: 500; }
+  /* report screenshot: show the whole thing, never crop the cards */
+  .b-shot2 { padding: 14px; }
+  .b-shot2 .b-img { object-fit: contain; }
   @media (max-width: 980px) {
     .bento { grid-template-columns: repeat(2, 1fr); }
   }
@@ -991,8 +1001,11 @@
 
     <div class="bento">
       <div class="b-tile b-shot">
-        <img class="b-img" src="Case_Discussion.png" alt="Live, AI-moderated case discussion">
-        <span class="b-shot-label">Live, AI-moderated discussion</span>
+        <img class="b-img" src="Case_Focus.png" alt="AI moderator keeping the discussion on track">
+        <div class="b-cap">
+          <div class="b-cap-title">Keeps discussions on track</div>
+          <div class="b-cap-desc">Subtly redirects the conversation when it drifts, without breaking the flow.</div>
+        </div>
       </div>
       <div class="b-tile b-wide b-socratic">
         <div class="socratic-label">Socratic, not generative</div>
@@ -1000,11 +1013,11 @@
       </div>
           <div class="b-tile">
             <div class="cf-icon">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 17 L9 12 L13 15 L20 7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="4" cy="17" r="1.6" fill="currentColor" stroke="none"/><circle cx="20" cy="7" r="1.6" fill="currentColor" stroke="none"/></svg>
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11 a7 7 0 0 0 14 0" stroke-linecap="round"/><line x1="12" y1="18" x2="12" y2="21" stroke-linecap="round"/></svg>
             </div>
             <div>
-              <div class="cf-title">Keeps discussions on track</div>
-              <div class="cf-desc">Subtly redirects the conversation when it drifts, without breaking the flow.</div>
+              <div class="cf-title">Live, AI-moderated discussion</div>
+              <div class="cf-desc">Students debate a real-world case out loud, guided by an AI moderator.</div>
             </div>
           </div>
           <div class="b-tile">
@@ -1035,8 +1048,8 @@
             </div>
           </div>
       <div class="b-tile b-wide b-shot2">
-        <img class="b-img" src="Performance_Eval.png" alt="Instant performance evaluation">
-        <span class="b-shot-label">Instant performance report</span>
+        <img class="b-img" src="Performance_Eval_3.png" alt="Case-specific analysis breakdown in the instant report">
+        <span class="b-shot-label">Instant report</span>
       </div>
     </div>
   </div>
