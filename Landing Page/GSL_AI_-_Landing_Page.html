@@ -396,23 +396,26 @@
 
   /* MENTORS */
   .mentors { padding: 100px 0; background: #f7f9fc; border-top: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft); }
-  .mentor-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .mentor-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
   .mentor-card {
-    background: var(--surface); border: 1px solid var(--line);
-    border-radius: var(--radius); padding: 18px;
-    box-shadow: var(--shadow-sm);
+    position: relative; aspect-ratio: 3 / 4;
+    border-radius: 20px; overflow: hidden;
+    box-shadow: 0 16px 38px -14px rgba(11,18,32,0.24), 0 4px 12px -6px rgba(11,18,32,0.10);
     transition: transform .25s ease, box-shadow .25s ease;
   }
-  .mentor-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
-  .mentor-frame { aspect-ratio: 4/3; border-radius: 12px; margin-bottom: 16px; overflow: hidden; position: relative; }
-  .mentor-frame.c1 { background: linear-gradient(160deg, #b6f5ea 0%, #5eead4 100%); }
-  .mentor-frame.c2 { background: linear-gradient(160deg, #ffe6c2 0%, #ffce8a 100%); }
-  .mentor-frame.c3 { background: linear-gradient(160deg, #fcd5ee 0%, #f9a8df 100%); }
-  .mentor-name { font-size: 18px; font-weight: 700; margin-bottom: 3px; color: var(--ink); }
-  .mentor-role { font-size: 14px; color: var(--ink-2); font-weight: 500; margin-bottom: 14px; }
+  .mentor-card:hover { transform: translateY(-4px); box-shadow: 0 28px 60px -18px rgba(11,18,32,0.32); }
+  .mentor-overlay {
+    position: absolute; left: 0; right: 0; bottom: 0; z-index: 1;
+    padding: 32px 22px 22px;
+    background: linear-gradient(to top, rgba(7,18,32,0.88) 0%, rgba(7,18,32,0.45) 46%, transparent 100%);
+  }
+  .mentor-name { font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 3px; line-height: 1.2; }
+  .mentor-role { font-size: 14.5px; color: rgba(255,255,255,0.82); font-weight: 500; margin-bottom: 14px; }
   .mentor-tag {
-    display: inline-block; padding: 4px 11px; border-radius: 999px;
-    background: var(--bg-soft); font-size: 11.5px; font-weight: 600; color: var(--ink-2);
+    display: inline-block; padding: 5px 12px; border-radius: 999px;
+    background: rgba(255,255,255,0.18); color: #fff;
+    font-size: 11.5px; font-weight: 600; letter-spacing: .01em;
+    -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
   }
 
   /* CASE STUDIES */
@@ -905,22 +908,28 @@
 
     <div class="mentor-grid">
       <div class="mentor-card">
-        <div class="mentor-frame c1"><img class="mentor-poster" src="Nikhil_FrontalFrame.png" alt="Nikhil"></div>
-        <div class="mentor-name">Nikhil</div>
-        <div class="mentor-role">The Bully</div>
-        <span class="mentor-tag">From Empathy</span>
+        <img class="mentor-poster" src="Nikhil_FrontalFrame.png" alt="Nikhil">
+        <div class="mentor-overlay">
+          <div class="mentor-name">Nikhil</div>
+          <div class="mentor-role">The Bully</div>
+          <span class="mentor-tag">From Empathy</span>
+        </div>
       </div>
       <div class="mentor-card">
-        <div class="mentor-frame c2"><img class="mentor-poster" src="Meera.png" alt="Meera Kapoor"></div>
-        <div class="mentor-name">Meera Kapoor</div>
-        <div class="mentor-role">Startup Coach</div>
-        <span class="mentor-tag">From Entrepreneurship 101</span>
+        <img class="mentor-poster" src="Meera.png" alt="Meera Kapoor">
+        <div class="mentor-overlay">
+          <div class="mentor-name">Meera Kapoor</div>
+          <div class="mentor-role">Startup Coach</div>
+          <span class="mentor-tag">From Entrepreneurship 101</span>
+        </div>
       </div>
       <div class="mentor-card">
-        <div class="mentor-frame c3"><img class="mentor-poster" src="Rohan.png" alt="Rohan Shah"></div>
-        <div class="mentor-name">Rohan Shah</div>
-        <div class="mentor-role">Venture Capitalist</div>
-        <span class="mentor-tag">From Case Study</span>
+        <img class="mentor-poster" src="Rohan.png" alt="Rohan Shah">
+        <div class="mentor-overlay">
+          <div class="mentor-name">Rohan Shah</div>
+          <div class="mentor-role">Venture Capitalist</div>
+          <span class="mentor-tag">From Case Study</span>
+        </div>
       </div>
     </div>
   </div>
