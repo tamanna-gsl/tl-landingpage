@@ -178,11 +178,12 @@
   .hero-tag .d.fuchsia { background: #DE00A5; }
 
   /* HERO FANNED DECK */
-  .deck { position: relative; height: 460px; display: flex; align-items: center; justify-content: center; }
+  .deck { position: relative; display: flex; gap: 18px; align-items: center; justify-content: center; padding: 14px 0; }
   .deck-card {
-    position: absolute;
-    width: 232px; height: 336px;
-    border-radius: 20px;
+    position: relative;
+    flex: 1 1 0; max-width: 184px;
+    aspect-ratio: 3 / 4;
+    border-radius: 18px;
     overflow: hidden;
     border: 1px solid rgba(11,18,32,0.06);
     box-shadow: 0 22px 48px -16px rgba(11,18,32,0.24), 0 6px 16px -8px rgba(11,18,32,0.10);
@@ -210,12 +211,13 @@
     background: rgba(255,255,255,0.2); color: #fff;
     -webkit-backdrop-filter: blur(4px); backdrop-filter: blur(4px);
   }
-  .deck-card.left   { transform: rotate(-9deg) translate(-156px, 28px); z-index: 1; }
-  .deck-card.right  { transform: rotate(9deg) translate(156px, 28px); z-index: 1; }
-  .deck-card.center { transform: rotate(0deg) translateY(-18px); z-index: 3; }
-  .deck-card.left:hover   { transform: rotate(-9deg) translate(-156px, 16px); z-index: 4; }
-  .deck-card.right:hover  { transform: rotate(9deg) translate(156px, 16px); z-index: 4; }
-  .deck-card.center:hover { transform: rotate(0deg) translateY(-30px); z-index: 4; }
+  .deck-card.center { transform: translateY(-16px); }
+  .deck-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 30px 60px -18px rgba(11,18,32,0.30), 0 10px 22px -10px rgba(11,18,32,0.12);
+    z-index: 4;
+  }
+  .deck-card.center:hover { transform: translateY(-22px); }
 
   /* SECTION HEAD */
   .section-head { text-align: center; max-width: 760px; margin: 0 auto 64px; }
@@ -337,6 +339,7 @@
     border: 1px solid var(--line);
     box-shadow: 0 30px 60px -20px rgba(11,18,32,0.28), 0 10px 24px -10px rgba(11,18,32,0.12);
     overflow: hidden; position: relative;
+    transition: height .45s ease;
   }
   .cases-content { display: flex; flex-direction: column; gap: 26px; }
   .socratic-callout {
@@ -510,9 +513,9 @@
 
   /* CASE STUDY SLIDESHOW */
   .cases-slide {
-    position: absolute; inset: 0;
+    position: absolute; top: 30px; left: 0; right: 0;
     opacity: 0; visibility: hidden;
-    transition: opacity .55s ease, visibility .55s ease;
+    transition: opacity .45s ease, visibility .45s ease;
   }
   .cases-slide.active { opacity: 1; visibility: visible; }
   .slide-nav {
@@ -557,10 +560,12 @@
     width: 7px; height: 7px; border-radius: 50%;
     background: #d4d8e3; box-shadow: 13px 0 0 #d4d8e3, 26px 0 0 #d4d8e3;
   }
-  /* drop the screenshot below the title bar */
-  .step-screen-panel .shot,
-  .dash-placeholder .shot { top: 30px; }
-  .cases-slide { top: 30px; }
+  /* product screenshots flow at natural size: no letterbox, no crop */
+  .step-screen-panel, .dash-placeholder { aspect-ratio: auto; height: auto; padding-top: 30px; }
+  .step-screen-panel .shot, .dash-placeholder .shot {
+    position: static; inset: auto; width: 100%; height: auto; padding: 0;
+  }
+  .slide-img { display: block; width: 100%; height: auto; }
 
   /* IMMERSIVE — ambient glow behind the slideshow and dashboard */
   .cases-visual, .dash-placeholder {
@@ -616,15 +621,10 @@
     .safety-grid { grid-template-columns: 1fr; gap: 18px; }
     .footer-top { flex-direction: column; gap: 28px; }
     .final-cta { padding: 70px 0 84px; }
-    /* keep the enlarged hero deck from overflowing on phones */
-    .deck { height: 340px; }
-    .deck-card { width: 156px; height: 226px; }
-    .deck-card.left   { transform: rotate(-8deg) translate(-84px, 18px); }
-    .deck-card.right  { transform: rotate(8deg) translate(84px, 18px); }
-    .deck-card.center { transform: rotate(0deg) translateY(-10px); }
-    .deck-card.left:hover   { transform: rotate(-8deg) translate(-84px, 10px); }
-    .deck-card.right:hover  { transform: rotate(8deg) translate(84px, 10px); }
-    .deck-card.center:hover { transform: rotate(0deg) translateY(-16px); }
+    /* tighten the hero trio on phones */
+    .deck { gap: 10px; padding: 6px 0; }
+    .deck-card.center { transform: translateY(-10px); }
+    .deck-card.center:hover { transform: translateY(-14px); }
   }
 </style>
 </head>
@@ -856,12 +856,12 @@
 
     <div class="cases-split">
       <div class="cases-visual cases-slider" aria-roledescription="carousel" aria-label="Case study walkthrough">
-        <div class="cases-slide active"><img class="shot" src="Case_Discussion.png" alt="Reading, discussion and evaluation stages with the live case discussion"></div>
-        <div class="cases-slide"><img class="shot" src="Case_Focus.png" alt="Close-up of the Socratic AI moderator dialogue"></div>
-        <div class="cases-slide"><img class="shot" src="Performance_Eval.png" alt="Performance evaluation with overall score and AI feedback"></div>
-        <div class="cases-slide"><img class="shot" src="Performance_Eval_2.png" alt="Learning profile with participation and mastery charts"></div>
-        <div class="cases-slide"><img class="shot" src="Performance_Eval_3.png" alt="Case-specific analysis breakdown"></div>
-        <div class="cases-slide"><img class="shot" src="Overview.png" alt="Student dashboard showing completed cases and scores"></div>
+        <div class="cases-slide active"><img class="slide-img" src="Case_Discussion.png" alt="Reading, discussion and evaluation stages with the live case discussion"></div>
+        <div class="cases-slide"><img class="slide-img" src="Case_Focus.png" alt="Close-up of the Socratic AI moderator dialogue"></div>
+        <div class="cases-slide"><img class="slide-img" src="Performance_Eval.png" alt="Performance evaluation with overall score and AI feedback"></div>
+        <div class="cases-slide"><img class="slide-img" src="Performance_Eval_2.png" alt="Learning profile with participation and mastery charts"></div>
+        <div class="cases-slide"><img class="slide-img" src="Performance_Eval_3.png" alt="Case-specific analysis breakdown"></div>
+        <div class="cases-slide"><img class="slide-img" src="Overview.png" alt="Student dashboard showing completed cases and scores"></div>
         <button class="slide-nav prev" type="button" aria-label="Previous screenshot">‹</button>
         <button class="slide-nav next" type="button" aria-label="Next screenshot">›</button>
         <div class="slide-dots">
@@ -1116,12 +1116,20 @@
       const slides = slider.querySelectorAll('.cases-slide');
       const dots = slider.querySelectorAll('.slide-dots .dot');
       if (!slides.length) return;
+      const BAR = 30;
       let current = 0, timer = null;
+      const setHeight = () => {
+        const img = slides[current].querySelector('img');
+        if (img && img.clientHeight) slider.style.height = (BAR + img.clientHeight) + 'px';
+      };
       const show = n => {
         current = (n + slides.length) % slides.length;
         slides.forEach((s, i) => s.classList.toggle('active', i === current));
         dots.forEach((d, i) => d.classList.toggle('active', i === current));
+        setHeight();
       };
+      slider.querySelectorAll('img').forEach(img => img.addEventListener('load', setHeight));
+      window.addEventListener('resize', setHeight);
       const start = () => { timer = setInterval(() => show(current + 1), 5000); };
       const stop = () => { clearInterval(timer); };
       const reset = () => { stop(); start(); };
