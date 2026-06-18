@@ -455,7 +455,8 @@
     transition: transform .25s ease, box-shadow .25s ease;
   }
   .course-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
-  .course-thumb { aspect-ratio: 16/10; position: relative; overflow: hidden; flex-shrink: 0; }
+  .course-thumb { aspect-ratio: 4 / 3; position: relative; overflow: hidden; flex-shrink: 0; }
+  .course-thumb.nykaa .shot { object-position: center; }
   .course-thumb.empathy { background: linear-gradient(135deg, #7af0dd 0%, #00D8B9 100%); }
   .course-thumb.entre { background: linear-gradient(135deg, #ffd594 0%, #FFAD40 100%); }
   .course-thumb.nykaa { background: linear-gradient(135deg, #f774d5 0%, #DE00A5 100%); }
@@ -490,6 +491,18 @@
     background: var(--bg-soft); color: var(--ink-2);
   }
   .course-body .btn { margin-top: auto; align-self: flex-start; }
+  .course-type {
+    display: inline-flex; align-items: center; gap: 7px;
+    font-size: 11.5px; font-weight: 700; letter-spacing: .05em; text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .course-type::before { content: ''; width: 7px; height: 7px; border-radius: 50%; }
+  .course-type.short { color: var(--teal-2); }
+  .course-type.short::before { background: #00D8B9; }
+  .course-type.indepth { color: #b45309; }
+  .course-type.indepth::before { background: #FFAD40; }
+  .course-type.case { color: #a8077e; }
+  .course-type.case::before { background: #DE00A5; }
 
   /* DASHBOARDS */
   .dashboards { padding: 100px 0; }
@@ -1024,11 +1037,11 @@
       <div class="course-card">
         <div class="course-thumb empathy"><img class="shot" src="Movie_-_Key_Image.png" alt="Empathy interactive movie"><span class="course-badge live">Live</span></div>
         <div class="course-body">
+          <div class="course-type short">Short course</div>
           <h3 class="course-name">Empathy</h3>
           <p class="course-desc">Social-emotional learning through an interactive movie &amp; dialogue.</p>
           <div class="course-pilot">100+ students piloted across Maharashtra &amp; Gujarat</div>
           <div class="course-tags">
-            <span class="chip">Short course</span>
             <span class="chip">Ages 9–14</span>
           </div>
           <a href="#" class="btn btn-brand"><span>Start the course →</span></a>
@@ -1038,10 +1051,10 @@
       <div class="course-card">
         <div class="course-thumb entre"><img class="shot" src="Entrepreneurship.png" alt="Entrepreneurship 101 course"><span class="course-badge soon">Coming soon</span></div>
         <div class="course-body">
+          <div class="course-type indepth">In-depth course</div>
           <h3 class="course-name">Entrepreneurship 101</h3>
           <p class="course-desc">Explore how ideas turn into ventures and learn to think like an entrepreneur.</p>
           <div class="course-tags">
-            <span class="chip">In-depth course</span>
             <span class="chip">Ages 12–17</span>
             <span class="chip">8 chapters</span>
           </div>
@@ -1052,10 +1065,10 @@
       <div class="course-card">
         <div class="course-thumb nykaa"><img class="shot" src="Nykaa_Case_Cover.png" alt="The Nykaa Story case study"><span class="course-badge live">Live</span></div>
         <div class="course-body">
+          <div class="course-type case">Case study</div>
           <h3 class="course-name">The Nykaa Story</h3>
           <p class="course-desc">Debate how Falguni Nayar spotted a market gap and built Nykaa into a national brand.</p>
           <div class="course-tags">
-            <span class="chip">Case study</span>
             <span class="chip">Ages 12+</span>
             <span class="chip">Live discussion</span>
           </div>
