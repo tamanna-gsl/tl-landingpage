@@ -33,14 +33,12 @@
     --radius-lg: 22px;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; scroll-padding-top: 88px; }
   html, body {
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
     color: var(--ink);
     background: var(--bg);
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
     font-size: 16px;
     letter-spacing: -0.005em;
   }
@@ -49,21 +47,11 @@
       radial-gradient(circle at 12% -5%, rgba(0,216,185,0.06) 0%, transparent 34%),
       radial-gradient(circle at 92% 8%, rgba(195,248,255,0.35) 0%, transparent 30%);
     background-attachment: fixed;
-    overflow-x: clip;
   }
   a { color: inherit; text-decoration: none; }
   button { font: inherit; border: 0; background: none; cursor: pointer; color: inherit; }
   img, svg { display: block; max-width: 100%; }
   ::selection { background: var(--teal-soft); color: var(--ink); }
-  a:focus-visible, button:focus-visible {
-    outline: 2px solid var(--brand-blue);
-    outline-offset: 3px;
-    border-radius: 6px;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    html { scroll-behavior: auto; }
-    * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
-  }
   .wrap { max-width: 1200px; margin: 0 auto; padding: 0 28px; }
 
   .kw {
@@ -135,13 +123,12 @@
   .nav-actions { display: flex; gap: 10px; align-items: center; }
 
   .btn {
-    display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+    display: inline-flex; align-items: center; gap: 8px;
     padding: 11px 22px; border-radius: 999px;
-    font-weight: 600; font-size: 14.5px; line-height: 1.1;
+    font-weight: 600; font-size: 14.5px;
     transition: transform .12s ease, background .18s ease, box-shadow .18s ease, color .18s ease;
-    white-space: nowrap; border: 1px solid transparent; user-select: none;
+    white-space: nowrap; border: 1px solid transparent;
   }
-  .btn:active { transform: translateY(0) scale(0.985); }
   .btn-primary { background: var(--ink); color: white; box-shadow: var(--shadow-sm); }
   .btn-primary:hover { background: var(--teal-2); transform: translateY(-1px); }
   .btn-teal { background: var(--teal); color: white; box-shadow: 0 4px 14px -2px rgba(20,184,166,0.4); }
@@ -348,6 +335,7 @@
     background: linear-gradient(135deg, #e7fbf6 0%, var(--bg-soft) 100%);
     border: 1px solid var(--line);
     box-shadow: 0 20px 50px -16px rgba(11,18,32,0.18), 0 8px 20px -8px rgba(11,18,32,0.10);
+    overflow: hidden; position: relative;
   }
   .cases-content { display: flex; flex-direction: column; gap: 26px; }
   .socratic-callout {
@@ -506,7 +494,7 @@
   .footer-bottom-links { display: flex; gap: 20px; }
   .footer-bottom-links a:hover { color: var(--ink); }
 
-  /* MEDIA FILLS (added with imagery) */
+  /* IMAGE FILLS — images crop to fit their container, never overflow */
   .deck-photo, .shot, .mentor-poster {
     position: absolute; inset: 0;
     width: 100%; height: 100%;
@@ -514,7 +502,6 @@
   }
   .deck-photo { object-position: center; }
   .shot { object-position: top center; }
-  .cases-visual { overflow: hidden; }
   .cases-visual .shot { object-position: center; }
   .mentor-poster { object-position: center top; }
 
@@ -523,35 +510,6 @@
   .brand-logo-img { height: 30px; width: auto; display: block; }
   .footer-brand .brand-logo-img { height: 32px; }
 
-  /* MENTOR INTRO VIDEOS */
-  .mentor-video { cursor: pointer; background: #0b1220; }
-  .mentor-play {
-    position: absolute; inset: 0; margin: auto;
-    width: 60px; height: 60px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    background: linear-gradient(100deg, var(--brand-teal) 0%, var(--brand-blue) 100%);
-    box-shadow: 0 10px 26px -6px rgba(7,51,147,0.55);
-    transition: transform .18s ease; z-index: 2;
-  }
-  .mentor-video:hover .mentor-play,
-  .mentor-video:focus-visible .mentor-play { transform: scale(1.09); }
-  .mentor-video:focus-visible { outline: 2px solid var(--brand-blue); outline-offset: 2px; }
-  .mentor-play svg { margin-left: 3px; }
-  .mentor-intro-pill {
-    position: absolute; top: 10px; left: 10px; z-index: 2;
-    display: inline-flex; align-items: center; gap: 6px;
-    padding: 4px 11px; border-radius: 999px;
-    background: rgba(11,18,32,0.55); color: #fff;
-    -webkit-backdrop-filter: blur(5px); backdrop-filter: blur(5px);
-    font-size: 11px; font-weight: 700; letter-spacing: 0.04em; text-transform: uppercase;
-  }
-  .mentor-intro-pill .pdot { width: 6px; height: 6px; border-radius: 50%; background: var(--brand-teal); }
-  .mentor-video-el {
-    position: absolute; inset: 0;
-    width: 100%; height: 100%;
-    object-fit: cover; background: #0b1220; z-index: 3;
-  }
-
   @media (max-width: 980px) {
     .nav-links { display: none; }
     .co-brand { display: none; }
@@ -559,38 +517,23 @@
     .step-showcase { grid-template-columns: 1fr; gap: 32px; }
     .cases-split { grid-template-columns: 1fr; gap: 36px; }
     .dash-grid { grid-template-columns: 1fr; gap: 40px; }
-    /* 3-up card grids breathe better as 2-up on tablets */
-    .conversation-grid, .mentor-grid, .course-grid, .safety-grid { grid-template-columns: repeat(2, 1fr); }
-    .section-head { margin-bottom: 48px; }
-    .how, .personal, .mentors, .cases, .courses, .dashboards, .safety { padding: 80px 0; }
   }
   @media (max-width: 640px) {
     .wrap { padding: 0 20px; }
     .nav-actions .btn-ghost { display: none; }
-    .hero { padding: 44px 0 56px; }
-    .hero-sub { margin-bottom: 28px; }
-    .hero-ctas .btn { width: 100%; }
-    .how, .personal, .mentors, .courses, .cases, .dashboards, .safety { padding: 64px 0; }
+    .hero { padding: 50px 0 60px; }
+    .how { padding: 64px 0; }
     .conversation-grid { grid-template-columns: 1fr; gap: 18px; }
     .mentor-grid { grid-template-columns: 1fr; gap: 18px; }
     .course-grid { grid-template-columns: 1fr; gap: 18px; }
+    .mentors { padding: 64px 0; }
+    .courses { padding: 64px 0; }
+    .cases { padding: 64px 0; }
+    .dashboards { padding: 64px 0; }
+    .safety { padding: 64px 0; }
     .safety-grid { grid-template-columns: 1fr; gap: 18px; }
-    .section-head { margin-bottom: 40px; }
-    .trust-logo { min-width: 100%; }
     .footer-top { flex-direction: column; gap: 28px; }
-    .footer-bottom { flex-direction: column; align-items: flex-start; }
     .final-cta { padding: 70px 0 84px; }
-    .final-ctas .btn { width: 100%; }
-
-    /* Tighten the fanned hero deck so it never overflows narrow screens */
-    .deck { height: 360px; }
-    .deck-card { width: 158px; height: 230px; }
-    .deck-card.left   { transform: rotate(-8deg) translate(-84px, 20px); }
-    .deck-card.right  { transform: rotate(8deg) translate(84px, 20px); }
-    .deck-card.center { transform: translateY(-10px); }
-    .deck-card.left:hover   { transform: rotate(-8deg) translate(-84px, 10px); }
-    .deck-card.right:hover  { transform: rotate(8deg) translate(84px, 10px); }
-    .deck-card.center:hover { transform: translateY(-18px); }
   }
 </style>
 </head>
@@ -644,7 +587,7 @@
       <div>
         <div class="deck">
           <div class="deck-card left">
-            <div class="deck-img nykaa"></div>
+            <img class="deck-photo" src="Nykaa_Case_Cover.png" alt="The Nykaa Story case study">
             <span class="deck-badge">Live</span>
             <div class="deck-scrim">
               <div class="deck-name">The Nykaa Story</div>
@@ -652,7 +595,7 @@
             </div>
           </div>
           <div class="deck-card right">
-            <div class="deck-img entre"></div>
+            <img class="deck-photo" src="Meera.png" alt="Entrepreneurship 101">
             <span class="deck-badge">Soon</span>
             <div class="deck-scrim">
               <div class="deck-name">Entrepreneurship 101</div>
@@ -660,7 +603,7 @@
             </div>
           </div>
           <div class="deck-card center">
-            <div class="deck-img empathy"></div>
+            <img class="deck-photo" src="Nikhil_FrontalFrame.png" alt="Empathy short course">
             <span class="deck-badge">Live</span>
             <div class="deck-scrim">
               <div class="deck-name">Empathy</div>
@@ -790,31 +733,19 @@
 
     <div class="mentor-grid">
       <div class="mentor-card">
-        <div class="mentor-frame mentor-video" data-video="intro-nikhil.mp4" role="button" tabindex="0" aria-label="Play Nikhil's introduction">
-          <img class="mentor-poster" src="Nikhil_FrontalFrame.png" alt="Nikhil">
-          <span class="mentor-intro-pill"><span class="pdot"></span> Intro</span>
-          <span class="mentor-play"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M8 5 L19 12 L8 19 Z"/></svg></span>
-        </div>
+        <div class="mentor-frame c1"><img class="mentor-poster" src="Nikhil_FrontalFrame.png" alt="Nikhil"></div>
         <div class="mentor-name">Nikhil</div>
         <div class="mentor-role">The Bully</div>
         <span class="mentor-tag">From Empathy</span>
       </div>
       <div class="mentor-card">
-        <div class="mentor-frame mentor-video" data-video="intro-meera.mp4" role="button" tabindex="0" aria-label="Play Meera Kapoor's introduction">
-          <img class="mentor-poster" src="Meera.png" alt="Meera Kapoor">
-          <span class="mentor-intro-pill"><span class="pdot"></span> Intro</span>
-          <span class="mentor-play"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M8 5 L19 12 L8 19 Z"/></svg></span>
-        </div>
+        <div class="mentor-frame c2"><img class="mentor-poster" src="Meera.png" alt="Meera Kapoor"></div>
         <div class="mentor-name">Meera Kapoor</div>
         <div class="mentor-role">Startup Coach</div>
         <span class="mentor-tag">From Entrepreneurship 101</span>
       </div>
       <div class="mentor-card">
-        <div class="mentor-frame mentor-video" data-video="intro-rohan.mp4" role="button" tabindex="0" aria-label="Play Rohan Shah's introduction">
-          <img class="mentor-poster" src="Rohan.png" alt="Rohan Shah">
-          <span class="mentor-intro-pill"><span class="pdot"></span> Intro</span>
-          <span class="mentor-play"><svg width="22" height="22" viewBox="0 0 24 24" fill="#fff"><path d="M8 5 L19 12 L8 19 Z"/></svg></span>
-        </div>
+        <div class="mentor-frame c3"><img class="mentor-poster" src="Rohan.png" alt="Rohan Shah"></div>
         <div class="mentor-name">Rohan Shah</div>
         <div class="mentor-role">Venture Capitalist</div>
         <span class="mentor-tag">From Case Study</span>
@@ -1069,35 +1000,6 @@
           t.setAttribute('aria-selected', t === tab ? 'true' : 'false');
         });
         panels.forEach(p => p.classList.toggle('active', p.dataset.step === step));
-      });
-    });
-
-    // Mentor intro videos: swap poster for an inline player on click/Enter/Space
-    function playMentorVideo(card) {
-      if (card.dataset.played) return;
-      card.dataset.played = '1';
-      const src = card.getAttribute('data-video');
-      const posterEl = card.querySelector('.mentor-poster');
-      const poster = posterEl ? posterEl.getAttribute('src') : '';
-      const v = document.createElement('video');
-      v.className = 'mentor-video-el';
-      v.src = src;
-      if (poster) v.setAttribute('poster', poster);
-      v.controls = true;
-      v.autoplay = true;
-      v.playsInline = true;
-      const btn = card.querySelector('.mentor-play');
-      if (btn) btn.remove();
-      const pill = card.querySelector('.mentor-intro-pill');
-      if (pill) pill.remove();
-      card.appendChild(v);
-      const p = v.play();
-      if (p && p.catch) p.catch(function(){});
-    }
-    document.querySelectorAll('.mentor-video').forEach(card => {
-      card.addEventListener('click', () => playMentorVideo(card));
-      card.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); playMentorVideo(card); }
       });
     });
   })();
