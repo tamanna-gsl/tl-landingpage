@@ -494,16 +494,18 @@
   .footer-bottom-links { display: flex; gap: 20px; }
   .footer-bottom-links a:hover { color: var(--ink); }
 
-  /* IMAGE FILLS — images crop to fit their container, never overflow */
+  /* IMAGE FILLS — images sized to fit their container, never overflow */
   .deck-photo, .shot, .mentor-poster {
     position: absolute; inset: 0;
     width: 100%; height: 100%;
     object-fit: cover; display: block;
   }
   .deck-photo { object-position: center; }
-  .shot { object-position: top center; }
-  .cases-visual .shot { object-position: center; }
   .mentor-poster { object-position: center top; }
+  /* Product UI screenshots: show the WHOLE screen, don't crop it */
+  .shot { object-fit: contain; object-position: center; padding: 16px; }
+  /* Course thumbnails are photos/covers, so cropping to fill is fine */
+  .course-thumb .shot { object-fit: cover; object-position: top center; padding: 0; }
 
   /* BRAND LOGO */
   .brand-logo { gap: 0; }
