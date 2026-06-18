@@ -419,11 +419,7 @@
   .cases { padding: 100px 0; }
   .cases-split { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 56px; align-items: center; }
   .cases-visual {
-    aspect-ratio: 3 / 2; border-radius: 16px;
-    background: var(--surface);
-    border: 1px solid var(--line);
-    box-shadow: 0 30px 60px -20px rgba(11,18,32,0.28), 0 10px 24px -10px rgba(11,18,32,0.12);
-    overflow: hidden; position: relative;
+    position: relative; overflow: visible; min-height: 320px;
   }
   .cases-content { display: flex; flex-direction: column; gap: 26px; }
   .socratic-callout {
@@ -597,11 +593,16 @@
 
   /* CASE STUDY SLIDESHOW */
   .cases-slide {
-    position: absolute; top: 30px; left: 0; right: 0; bottom: 0;
+    position: absolute; top: 50%; left: 0; right: 0; transform: translateY(-50%);
     opacity: 0; visibility: hidden;
     transition: opacity .45s ease, visibility .45s ease;
   }
   .cases-slide.active { opacity: 1; visibility: visible; }
+  .slide-img {
+    display: block; width: 100%; height: auto;
+    border-radius: 16px; border: 1px solid var(--line);
+    box-shadow: 0 30px 60px -20px rgba(11,18,32,0.30), 0 12px 26px -12px rgba(11,18,32,0.12), 0 22px 70px -18px rgba(0,216,185,0.20);
+  }
   .slide-nav {
     position: absolute; top: 50%; transform: translateY(-50%);
     width: 38px; height: 38px; border-radius: 50%; z-index: 3;
@@ -632,13 +633,11 @@
 
   /* IMMERSIVE — clean app-window framing for product screenshots */
   .step-screen-panel::before,
-  .cases-visual::before,
   .dash-placeholder::before {
     content: ''; position: absolute; top: 0; left: 0; right: 0; height: 30px; z-index: 4;
     background: #f6f7fb; border-bottom: 1px solid var(--line-soft);
   }
   .step-screen-panel::after,
-  .cases-visual::after,
   .dash-placeholder::after {
     content: ''; position: absolute; top: 12px; left: 16px; z-index: 5;
     width: 7px; height: 7px; border-radius: 50%;
@@ -649,10 +648,9 @@
   .step-screen-panel .shot, .dash-placeholder .shot {
     position: static; inset: auto; width: 100%; height: auto; padding: 0;
   }
-  .slide-img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top center; }
 
-  /* IMMERSIVE — ambient glow behind the slideshow and dashboard */
-  .cases-visual, .dash-placeholder {
+  /* IMMERSIVE — ambient glow behind the dashboard */
+  .dash-placeholder {
     box-shadow:
       0 30px 60px -20px rgba(11,18,32,0.26),
       0 10px 24px -10px rgba(11,18,32,0.12),
@@ -1200,6 +1198,15 @@
       const dots = slider.querySelectorAll('.slide-dots .dot');
       if (!slides.length) return;
       let current = 0, timer = null;
+      // lock the slider to the tallest slide so it never jumps as it cycles
+      const setHeight = () => {
+        let max = 0;
+        slides.forEach(s => { const img = s.querySelector('img'); if (img) max = Math.max(max, img.clientHeight); });
+        if (max) slider.style.height = max + 'px';
+      };
+      slider.querySelectorAll('img').forEach(img => img.addEventListener('load', setHeight));
+      window.addEventListener('resize', setHeight);
+      setHeight();
       const show = n => {
         current = (n + slides.length) % slides.length;
         slides.forEach((s, i) => s.classList.toggle('active', i === current));
