@@ -471,15 +471,15 @@
   .b-shot { display: flex; flex-direction: column; }
   .b-shot-media { position: relative; flex: 1 1 auto; min-height: 0; background: #f3f5fa; }
   .b-shot-media img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
-  .b-cap { background: #0b1220; padding: 18px 22px; }
-  .b-cap-title { font-size: 18px; font-weight: 700; color: #fff; margin-bottom: 4px; line-height: 1.2; }
-  .b-cap-desc { font-size: 13.5px; color: rgba(255,255,255,0.82); line-height: 1.45; font-weight: 500; }
+  .b-cap { background: var(--surface); padding: 18px 22px; border-top: 1px solid var(--line); }
+  .b-cap-title { font-size: 18px; font-weight: 700; color: var(--ink); margin-bottom: 4px; line-height: 1.2; }
+  .b-cap-desc { font-size: 13.5px; color: var(--mute); line-height: 1.45; font-weight: 500; }
   /* wide feature tiles: icon beside text */
   .b-feat { flex-direction: row; align-items: flex-start; gap: 16px; }
   .b-feat .cf-icon { margin-bottom: 0; }
   /* report screenshot: large tile, zoomed to fill (left cropped to fit) */
-  .b-shot2 { grid-column: span 2; grid-row: span 2; }
-  .b-shot2 .b-img { object-fit: cover; object-position: right center; }
+  .b-shot2 { grid-column: span 2; grid-row: span 2; padding: 16px; background: #f3f5fa; }
+  .b-shot2 .b-img { object-fit: contain; object-position: center; }
   @media (max-width: 980px) {
     .bento { grid-template-columns: repeat(2, 1fr); }
   }
