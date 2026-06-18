@@ -417,14 +417,13 @@
 
   /* CASE STUDIES */
   .cases { padding: 100px 0; }
-  .cases-split { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 56px; align-items: center; }
+  .cases-split { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 56px; align-items: center; }
   .cases-visual {
-    aspect-ratio: 16 / 10; border-radius: 16px;
+    aspect-ratio: 3 / 2; border-radius: 16px;
     background: var(--surface);
     border: 1px solid var(--line);
     box-shadow: 0 30px 60px -20px rgba(11,18,32,0.28), 0 10px 24px -10px rgba(11,18,32,0.12);
     overflow: hidden; position: relative;
-    transition: height .45s ease;
   }
   .cases-content { display: flex; flex-direction: column; gap: 26px; }
   .socratic-callout {
@@ -598,7 +597,7 @@
 
   /* CASE STUDY SLIDESHOW */
   .cases-slide {
-    position: absolute; top: 30px; left: 0; right: 0;
+    position: absolute; top: 30px; left: 0; right: 0; bottom: 0;
     opacity: 0; visibility: hidden;
     transition: opacity .45s ease, visibility .45s ease;
   }
@@ -650,7 +649,7 @@
   .step-screen-panel .shot, .dash-placeholder .shot {
     position: static; inset: auto; width: 100%; height: auto; padding: 0;
   }
-  .slide-img { display: block; width: 100%; height: auto; }
+  .slide-img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: top center; }
 
   /* IMMERSIVE — ambient glow behind the slideshow and dashboard */
   .cases-visual, .dash-placeholder {
@@ -1200,20 +1199,12 @@
       const slides = slider.querySelectorAll('.cases-slide');
       const dots = slider.querySelectorAll('.slide-dots .dot');
       if (!slides.length) return;
-      const BAR = 30;
       let current = 0, timer = null;
-      const setHeight = () => {
-        const img = slides[current].querySelector('img');
-        if (img && img.clientHeight) slider.style.height = (BAR + img.clientHeight) + 'px';
-      };
       const show = n => {
         current = (n + slides.length) % slides.length;
         slides.forEach((s, i) => s.classList.toggle('active', i === current));
         dots.forEach((d, i) => d.classList.toggle('active', i === current));
-        setHeight();
       };
-      slider.querySelectorAll('img').forEach(img => img.addEventListener('load', setHeight));
-      window.addEventListener('resize', setHeight);
       const start = () => { timer = setInterval(() => show(current + 1), 5000); };
       const stop = () => { clearInterval(timer); };
       const reset = () => { stop(); start(); };
