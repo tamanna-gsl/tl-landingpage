@@ -553,7 +553,7 @@
 
   /* DASHBOARDS */
   .dashboards { padding: 100px 0; }
-  .dash-grid { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 56px; align-items: center; }
+  .dash-grid { display: grid; grid-template-columns: 0.82fr 1.18fr; gap: 48px; align-items: center; }
   .audience-stack { display: flex; flex-direction: column; gap: 32px; }
   .audience-label {
     display: inline-block; padding: 5px 12px;
@@ -580,6 +580,43 @@
     box-shadow: 0 30px 60px -20px rgba(11,18,32,0.28), 0 10px 24px -10px rgba(11,18,32,0.12);
     overflow: hidden; position: relative;
   }
+
+  /* DASHBOARD UI MOCKUP */
+  .dash-ui {
+    background: #fff; border: 1px solid var(--line); border-radius: 18px; padding: 20px;
+    box-shadow: 0 34px 70px -24px rgba(11,18,32,0.24), 0 12px 26px -12px rgba(11,18,32,0.10), 0 18px 60px -22px rgba(7,51,147,0.18);
+  }
+  .du-head { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .du-ico { width: 40px; height: 40px; border-radius: 11px; background: #e7eefe; color: var(--brand-blue); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .du-title { font-size: 19px; font-weight: 800; color: var(--ink); line-height: 1.1; letter-spacing: -0.01em; }
+  .du-sub { font-size: 12px; color: var(--mute); margin-top: 3px; }
+  .du-snap { background: #f3f6fd; border: 1px solid #e3eafb; border-radius: 14px; padding: 14px; margin-bottom: 16px; }
+  .du-eye { display: flex; align-items: center; gap: 7px; font-size: 9.5px; font-weight: 800; letter-spacing: .06em; text-transform: uppercase; color: var(--brand-blue); margin-bottom: 12px; }
+  .du-eye-dot { width: 13px; height: 13px; border-radius: 50%; border: 3px solid var(--brand-blue); flex-shrink: 0; }
+  .du-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 12px; }
+  .du-stat { background: #fff; border: 1px solid #e6ecf8; border-radius: 11px; padding: 11px 12px; }
+  .du-stat-top { display: flex; align-items: center; gap: 7px; margin-bottom: 8px; }
+  .du-stat-ic { width: 22px; height: 22px; border-radius: 6px; background: #eaf1fe; color: var(--brand-blue); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .du-stat-lbl { font-size: 8.5px; font-weight: 800; letter-spacing: .05em; text-transform: uppercase; color: var(--mute); }
+  .du-stat-val { font-size: 15px; font-weight: 800; color: var(--ink); line-height: 1.15; }
+  .du-stat-val.blue { color: var(--brand-blue); }
+  .du-stat-val.sm { font-size: 12.5px; }
+  .du-stat-sub { font-size: 10.5px; color: var(--mute); margin-top: 3px; }
+  .du-quote { border-left: 3px solid var(--brand-blue); padding: 3px 0 3px 12px; font-size: 12px; font-style: italic; color: var(--ink-2); line-height: 1.4; }
+  .du-chaps-head { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+  .du-chaps-t { font-size: 15px; font-weight: 800; color: var(--ink); }
+  .du-chip { font-size: 10.5px; font-weight: 700; color: var(--brand-blue); background: #e7eefe; padding: 4px 10px; border-radius: 999px; }
+  .du-chap { display: flex; align-items: center; gap: 11px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 11px; margin-bottom: 8px; }
+  .du-chap:last-child { margin-bottom: 0; }
+  .du-check { width: 24px; height: 24px; border-radius: 50%; flex-shrink: 0; display: flex; align-items: center; justify-content: center; border: 2px solid var(--line); color: transparent; }
+  .du-check.done { background: #d8f5e3; border-color: #aee9c5; color: #16a34a; }
+  .du-chap-main { flex: 1; min-width: 0; }
+  .du-chap-t { font-size: 13.5px; font-weight: 700; color: var(--ink); line-height: 1.2; }
+  .du-chap-s { font-size: 10.5px; color: var(--mute); margin-top: 2px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .du-chap-s .du-conv { color: var(--brand-blue); font-weight: 600; }
+  .du-status { font-size: 10.5px; font-weight: 700; padding: 4px 10px; border-radius: 999px; flex-shrink: 0; }
+  .du-status.done { background: #d8f5e3; color: #15803d; }
+  .du-status.todo { background: var(--bg-soft); color: var(--mute); }
 
   /* SAFETY */
   .safety { padding: 100px 0; background: #f7f9fc; border-top: 1px solid var(--line-soft); border-bottom: 1px solid var(--line-soft); }
@@ -1163,28 +1200,90 @@
     <div class="section-head">
       <div class="eyebrow"><span class="dot"></span> For teachers and parents</div>
       <h2>A window into the child's <span class="kw">growth</span>.</h2>
+      <p class="lede">Every course, chapter by chapter, with an assessment report and the full conversation behind each one.</p>
     </div>
 
     <div class="dash-grid">
       <div class="audience-stack">
         <div>
-          <span class="audience-label">For teachers</span>
+          <span class="audience-label">For parents</span>
           <ul class="audience-list">
-            <li>Full class visibility and progress summaries</li>
-            <li>Access to individual conversation transcripts</li>
-            <li>Intervention alerts and performance insights</li>
+            <li>Every course your child attempts, chapter by chapter</li>
+            <li>A full assessment report for each course</li>
+            <li>Access to all of their chat conversations</li>
           </ul>
         </div>
         <div>
-          <span class="audience-label">For parents</span>
+          <span class="audience-label">For teachers</span>
           <ul class="audience-list">
-            <li>Dedicated parent portal with child's progress</li>
-            <li>Supervision of chat interactions</li>
-            <li>Reports and improvement recommendations</li>
+            <li>Full class visibility at a glance</li>
+            <li>Per-student course and chapter progress</li>
+            <li>Every assessment report and chat transcript</li>
           </ul>
         </div>
       </div>
-      <div class="dash-placeholder"><img class="shot" src="Report.png" alt="Parent and teacher progress report"></div>
+
+      <div class="dash-ui" role="img" aria-label="Parent and teacher dashboard showing course progress and an assessment report">
+        <div class="du-head">
+          <span class="du-ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 6 C10 4 7 4 4 5 V18 C7 17 10 17 12 19 C14 17 17 17 20 18 V5 C17 4 14 4 12 6 Z" stroke-linejoin="round"/><line x1="12" y1="6" x2="12" y2="19"/></svg></span>
+          <div>
+            <div class="du-title">Entrepreneurship</div>
+            <div class="du-sub">2 of 4 chapters completed</div>
+          </div>
+        </div>
+
+        <div class="du-snap">
+          <div class="du-eye"><span class="du-eye-dot"></span> Report snapshot — learning story</div>
+          <div class="du-stats">
+            <div class="du-stat">
+              <div class="du-stat-top"><span class="du-stat-ic"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19 V5"/><path d="M6 11 L12 5 L18 11"/></svg></span><span class="du-stat-lbl">Current level</span></div>
+              <div class="du-stat-val blue">Advanced</div>
+              <div class="du-stat-sub">88% mastery</div>
+            </div>
+            <div class="du-stat">
+              <div class="du-stat-top"><span class="du-stat-ic"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 16 L10 10 L14 14 L20 7"/><path d="M15 7 H20 V12"/></svg></span><span class="du-stat-lbl">Growth</span></div>
+              <div class="du-stat-val">Strong progress</div>
+              <div class="du-stat-sub">4 skills checked</div>
+            </div>
+            <div class="du-stat">
+              <div class="du-stat-top"><span class="du-stat-ic"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="8"/><circle cx="12" cy="12" r="3"/></svg></span><span class="du-stat-lbl">Practice next</span></div>
+              <div class="du-stat-val sm">Explain Empathic Concern</div>
+              <div class="du-stat-sub">Best place to focus</div>
+            </div>
+            <div class="du-stat">
+              <div class="du-stat-top"><span class="du-stat-ic"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8 12 L11 15 L16 9"/></svg></span><span class="du-stat-lbl">Advanced skills</span></div>
+              <div class="du-stat-val">3 / 4</div>
+              <div class="du-stat-sub">Already advanced</div>
+            </div>
+          </div>
+          <div class="du-quote">Keep building from clear definitions to confident, independent reasoning.</div>
+        </div>
+
+        <div class="du-chaps-head">
+          <span class="du-chaps-t">Chapters</span>
+          <span class="du-chip">2 completed</span>
+        </div>
+        <div class="du-chap">
+          <span class="du-check done"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 L10 17 L19 7"/></svg></span>
+          <div class="du-chap-main"><div class="du-chap-t">Chapter 1</div><div class="du-chap-s">Started May 22, 2026</div></div>
+          <span class="du-status done">Completed</span>
+        </div>
+        <div class="du-chap">
+          <span class="du-check done"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12 L10 17 L19 7"/></svg></span>
+          <div class="du-chap-main"><div class="du-chap-t">Chapter 2</div><div class="du-chap-s"><span class="du-conv">Has conversation</span> · Report card</div></div>
+          <span class="du-status done">Completed</span>
+        </div>
+        <div class="du-chap">
+          <span class="du-check"></span>
+          <div class="du-chap-main"><div class="du-chap-t">Chapter 3</div><div class="du-chap-s">Not started</div></div>
+          <span class="du-status todo">Not started</span>
+        </div>
+        <div class="du-chap">
+          <span class="du-check"></span>
+          <div class="du-chap-main"><div class="du-chap-t">Chapter 4</div><div class="du-chap-s">Not started</div></div>
+          <span class="du-status todo">Not started</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
