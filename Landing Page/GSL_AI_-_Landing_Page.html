@@ -123,9 +123,14 @@
     width: 28px; height: 28px; border-radius: 8px; background: var(--ink);
     display: flex; align-items: center; justify-content: center;
   }
+  .nav-right { display: flex; align-items: center; gap: 32px; }
   .nav-links { display: flex; gap: 32px; align-items: center; font-size: 14.5px; font-weight: 500; color: var(--ink-2); }
+  .nav-links a { color: var(--mute); }
+  .nav-links a.active { color: var(--ink); font-weight: 700; }
   .nav-links a:hover { color: var(--teal-2); }
   .nav-actions { display: flex; gap: 10px; align-items: center; }
+  .btn-mint { background: var(--teal-soft); color: var(--ink); border-color: var(--teal-soft); }
+  .btn-mint:hover { background: #b6f5ea; }
 
   .btn {
     display: inline-flex; align-items: center; gap: 8px;
@@ -867,25 +872,15 @@
 <div class="nav-wrap">
   <div class="wrap">
     <nav class="nav">
-      <div class="brand-cluster">
-        <div class="co-brand">
-          <div class="logo-mark">G</div>
-          <span class="gsl">GET SET<br>LEARN</span>
+      <a href="#" class="logo brand-logo" aria-label="talk &amp; learn home">
+        <img src="Final_Logo.png" alt="talk &amp; learn" class="brand-logo-img">
+      </a>
+      <div class="nav-right">
+        <div class="nav-links">
+          <a href="#" class="active">Home</a>
+          <a href="#">Contact Us</a>
         </div>
-        <a href="#" class="logo brand-logo" aria-label="talk &amp; learn home">
-          <img src="Final_Logo.png" alt="talk &amp; learn" class="brand-logo-img">
-        </a>
-      </div>
-      <div class="nav-links">
-        <a href="#">Home</a>
-        <a href="#how">How it works</a>
-        <a href="#courses">Courses</a>
-        <a href="#dashboards">For grown-ups</a>
-        <a href="#">Contact</a>
-      </div>
-      <div class="nav-actions">
-        <a href="#" class="btn btn-ghost">Log in</a>
-        <a href="#" class="btn btn-brand"><span>Start free</span></a>
+        <a href="#" class="btn btn-mint">Log in</a>
       </div>
     </nav>
   </div>
