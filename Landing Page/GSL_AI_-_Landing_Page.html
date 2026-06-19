@@ -94,6 +94,10 @@
   .lede { font-size: 18.5px; line-height: 1.55; color: var(--ink-2); font-weight: 500; max-width: 640px; margin: 0 auto; }
 
   /* NAV */
+  .topbar { background: #f4f6fb; border-bottom: 1px solid var(--line-soft); }
+  .topbar .wrap { padding-top: 8px; padding-bottom: 8px; }
+  .topbar p { text-align: center; font-size: 13px; font-weight: 600; color: var(--mute); letter-spacing: 0.01em; }
+  .topbar .x { color: var(--mute); padding: 0 4px; }
   .nav-wrap {
     position: sticky; top: 0; z-index: 50;
     background: rgba(255,255,255,0.8);
@@ -649,7 +653,7 @@
     font-size: 13px; font-weight: 600; color: var(--mute);
     letter-spacing: 0.02em; box-shadow: var(--shadow-sm);
   }
-  .trust-logo-img { width: 100%; max-width: 340px; height: auto; display: block; }
+  .trust-logo-img { width: 100%; max-width: 560px; height: auto; display: block; }
 
   /* FINAL CTA */
   .final-cta { padding: 110px 0 130px; text-align: center; position: relative; overflow: hidden; background: #f7f9fc; border-top: 1px solid var(--line-soft); }
@@ -851,6 +855,13 @@
 <script>document.documentElement.classList.add('anim');</script>
 </head>
 <body>
+
+<!-- TOP BAR -->
+<div class="topbar">
+  <div class="wrap">
+    <p>presented by Get Set Learn <span class="x">×</span> Prismix Studios</p>
+  </div>
+</div>
 
 <!-- NAV — placeholder; replace with existing GSL site nav -->
 <div class="nav-wrap">
@@ -1326,7 +1337,7 @@
 <!-- TRUST -->
 <section class="trust">
   <div class="wrap">
-    <div class="trust-eye">Presented by Get Set Learn</div>
+    <div class="trust-eye">Built and backed by</div>
     <div class="trust-row">
       <img class="trust-logo-img" src="AMG_GSL_Logo.png" alt="Arvind Mafatlal Group and Get Set Learn">
     </div>
