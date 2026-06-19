@@ -773,7 +773,45 @@
     .deck-card.center { transform: translateY(-10px); }
     .deck-card.center:hover { transform: translateY(-14px); }
   }
+  @media (prefers-reduced-motion: no-preference) {
+    /* scroll reveal — fade for hoverable cards (keeps their hover transition) */
+    .anim .conversation-card,
+    .anim .mentor-card,
+    .anim .course-card,
+    .anim .safety-feature,
+    .anim .b-tile {
+      opacity: 0;
+      transition: opacity .6s ease, transform .25s ease, box-shadow .25s ease;
+    }
+    .anim .conversation-card.is-in,
+    .anim .mentor-card.is-in,
+    .anim .course-card.is-in,
+    .anim .safety-feature.is-in,
+    .anim .b-tile.is-in { opacity: 1; }
+    /* scroll reveal — slide-up for non-hover blocks */
+    .anim .section-head,
+    .anim .step-showcase,
+    .anim .dash-grid,
+    .anim .trust-row,
+    .anim .final-cta-inner {
+      opacity: 0; transform: translateY(20px);
+      transition: opacity .6s ease, transform .6s cubic-bezier(.2,.7,.2,1);
+    }
+    .anim .section-head.is-in,
+    .anim .step-showcase.is-in,
+    .anim .dash-grid.is-in,
+    .anim .trust-row.is-in,
+    .anim .final-cta-inner.is-in { opacity: 1; transform: none; }
+    /* gentle float on the hero chips */
+    @keyframes floaty { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
+    .hc-score { animation: floaty 6s ease-in-out infinite; }
+    .hc-chat { animation: floaty 7s ease-in-out infinite .6s; }
+    /* play-button pulse */
+    @keyframes hcpulse { 0% { box-shadow: 0 0 0 0 rgba(0,216,185,0.45); } 70% { box-shadow: 0 0 0 16px rgba(0,216,185,0); } 100% { box-shadow: 0 0 0 0 rgba(0,216,185,0); } }
+    .hc-play::after { content: ''; position: absolute; inset: 0; border-radius: 50%; pointer-events: none; animation: hcpulse 2.4s ease-out infinite; }
+  }
 </style>
+<script>document.documentElement.classList.add('anim');</script>
 </head>
 <body>
 
@@ -1285,6 +1323,26 @@
       slider.addEventListener('mouseleave', start);
       show(0); start();
     });
+
+    // Scroll reveal: fade/slide elements in as they enter the viewport
+    if ('IntersectionObserver' in window) {
+      const sel = '.section-head, .conversation-card, .mentor-card, .course-card, .safety-feature, .b-tile, .step-showcase, .dash-grid, .trust-row, .final-cta-inner';
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach((e) => {
+          if (!e.isIntersecting) return;
+          const el = e.target;
+          const sibs = el.parentElement ? Array.prototype.slice.call(el.parentElement.children) : [el];
+          const i = sibs.indexOf(el);
+          el.style.transitionDelay = (Math.min(i, 6) * 0.07) + 's';
+          el.classList.add('is-in');
+          el.addEventListener('transitionend', () => { el.style.transitionDelay = ''; }, { once: true });
+          obs.unobserve(el);
+        });
+      }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+      document.querySelectorAll(sel).forEach((el) => obs.observe(el));
+    } else {
+      document.documentElement.classList.remove('anim');
+    }
   })();
 </script>
 
